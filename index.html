@@ -1,0 +1,2661 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AGROTERM · Santa Fe & Entre Ríos</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #0a0a0a;
+  --bg1:      #0f0f0f;
+  --bg2:      #141414;
+  --bg3:      #1a1a1a;
+  --bg4:      #202020;
+  --border:   #2a2a2a;
+  --border2:  #333;
+  --green:    #00ff41;
+  --green2:   #00cc33;
+  --green3:   #004d14;
+  --red:      #ff3b30;
+  --red2:     #cc2f26;
+  --red3:     #4d0f0a;
+  --yellow:   #ffd700;
+  --yellow2:  #ccac00;
+  --orange:   #ff8c00;
+  --blue:     #00b4ff;
+  --blue2:    #0088cc;
+  --cyan:     #00e5ff;
+  --white:    #e8e8e8;
+  --gray:     #888;
+  --gray2:    #555;
+  --gray3:    #333;
+  --mono:     'JetBrains Mono', monospace;
+  --sans:     'IBM Plex Sans', sans-serif;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--mono);
+  font-size: 12px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── SCANLINE OVERLAY ── */
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events:none;
+  z-index:9999;
+}
+
+/* ── TICKER TAPE ── */
+.ticker-wrap {
+  background: var(--green3);
+  border-bottom: 1px solid var(--green);
+  height: 28px;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+.ticker-track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  animation: ticker 60s linear infinite;
+  white-space: nowrap;
+  gap: 0;
+}
+
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.tick-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 24px;
+  border-right: 1px solid var(--green3);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--green);
+  letter-spacing: 0.5px;
+}
+
+.tick-item .sym { color: var(--yellow); font-weight: 600; }
+.tick-item .up  { color: var(--green); }
+.tick-item .dn  { color: var(--red); }
+.tick-sep { color: var(--green3); }
+
+/* ── HEADER ── */
+.header {
+  background: var(--bg1);
+  border-bottom: 1px solid var(--border);
+  padding: 0 16px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 28px;
+  z-index: 100;
+}
+
+.header-left { display:flex; align-items:center; gap:16px; }
+
+.logo {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--yellow);
+  letter-spacing: 3px;
+  font-family: var(--mono);
+  text-shadow: 0 0 20px rgba(255,215,0,0.4);
+}
+
+.logo span { color: var(--green); }
+
+.header-status {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:10px;
+  color: var(--gray);
+  border-left: 1px solid var(--border2);
+  padding-left: 16px;
+}
+
+.status-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  animation: blink 1.5s infinite;
+}
+.status-dot.off { background: var(--red); box-shadow: 0 0 6px var(--red); animation:none; }
+
+@keyframes blink {
+  0%,100% { opacity:1; }
+  50%      { opacity:0.3; }
+}
+
+.header-right {
+  display:flex;
+  align-items:center;
+  gap:20px;
+  font-size:11px;
+  color: var(--gray);
+  font-family: var(--mono);
+}
+
+.header-clock { color: var(--green); font-weight:500; }
+
+.campaign-badge {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  padding: 3px 10px;
+  font-size: 10px;
+  color: var(--yellow);
+  letter-spacing: 1px;
+}
+
+/* ── TABS ── */
+.tabs {
+  display:flex;
+  background: var(--bg1);
+  border-bottom: 1px solid var(--border);
+  padding: 0 16px;
+  overflow-x: auto;
+}
+
+.tab {
+  padding: 9px 16px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--gray);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.15s;
+  font-family: var(--mono);
+}
+.tab:hover { color: var(--white); }
+.tab.active { color: var(--yellow); border-bottom-color: var(--yellow); }
+
+/* ── LAYOUT ── */
+.main { padding: 12px 16px; }
+
+.section { display:none; }
+.section.active { display:block; }
+
+/* GRID SYSTEM */
+.row { display:flex; gap:10px; margin-bottom:10px; }
+.col1 { flex:1; }
+.col2 { flex:2; }
+.col3 { flex:3; }
+.col4 { flex:4; }
+
+/* ── PANEL ── */
+.panel {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.panel-hdr {
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+  padding: 5px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 8px;
+}
+
+.panel-title {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--yellow);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.panel-meta {
+  font-size: 9px;
+  color: var(--gray);
+  letter-spacing: 0.5px;
+}
+
+.panel-body { padding: 8px 10px; }
+
+/* ── KPI ── */
+.kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:10px; }
+
+.kpi {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height: 2px;
+}
+.kpi.green::before { background: var(--green); }
+.kpi.red::before   { background: var(--red); }
+.kpi.yellow::before{ background: var(--yellow); }
+.kpi.blue::before  { background: var(--blue); }
+
+.kpi-label {
+  font-size: 9px;
+  color: var(--gray);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.kpi-val {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1;
+  font-family: var(--mono);
+  letter-spacing: -1px;
+}
+.kpi-val.green { color: var(--green); text-shadow: 0 0 15px rgba(0,255,65,0.3); }
+.kpi-val.red   { color: var(--red); }
+.kpi-val.yellow{ color: var(--yellow); text-shadow: 0 0 15px rgba(255,215,0,0.3); }
+.kpi-val.white { color: var(--white); }
+
+.kpi-unit { font-size:12px; color:var(--gray); font-weight:400; }
+
+.kpi-delta {
+  font-size: 10px;
+  margin-top: 5px;
+  display:flex;
+  align-items:center;
+  gap: 4px;
+}
+.kpi-delta.up  { color: var(--green); }
+.kpi-delta.dn  { color: var(--red); }
+.kpi-sub { font-size:9px; color:var(--gray2); margin-top:2px; }
+
+/* ── GRAIN TABLE ── */
+.grain-table { width:100%; border-collapse:collapse; }
+
+.grain-table thead tr {
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border2);
+}
+
+.grain-table th {
+  padding: 5px 8px;
+  font-size: 9px;
+  color: var(--gray);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: right;
+  font-weight:600;
+}
+
+.grain-table th:first-child { text-align:left; }
+
+.grain-table td {
+  padding: 6px 8px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: right;
+  font-family: var(--mono);
+  vertical-align: middle;
+}
+
+.grain-table td:first-child { text-align:left; }
+
+.grain-table tr:hover { background: var(--bg3); }
+
+.grain-name {
+  display:flex;
+  align-items:center;
+  gap: 8px;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.grain-sym {
+  font-size: 9px;
+  color: var(--yellow);
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+.price-live {
+  color: var(--green);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.price-live.flash-up {
+  animation: flashUp 0.5s ease;
+}
+.price-live.flash-dn {
+  animation: flashDn 0.5s ease;
+}
+
+@keyframes flashUp {
+  0%   { background: rgba(0,255,65,0.3); color: #fff; }
+  100% { background: transparent; color: var(--green); }
+}
+
+@keyframes flashDn {
+  0%   { background: rgba(255,59,48,0.3); color: #fff; }
+  100% { background: transparent; color: var(--green); }
+}
+
+.change-up { color: var(--green); }
+.change-dn { color: var(--red); }
+
+.pill {
+  display:inline-block;
+  padding: 1px 6px;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 2px;
+}
+.pill.up { background: rgba(0,255,65,0.15); color: var(--green); }
+.pill.dn { background: rgba(255,59,48,0.15); color: var(--red); }
+
+/* ── SPARKLINE ── */
+.spark { display:flex; align-items:flex-end; gap:2px; height:28px; }
+.spark-bar { width:4px; border-radius:1px 1px 0 0; min-height:3px; }
+
+/* ── HACIENDA TABLE ── */
+.hac-table { width:100%; border-collapse:collapse; }
+.hac-table thead tr { background: var(--bg3); border-bottom:1px solid var(--border2); }
+.hac-table th {
+  padding:5px 8px;
+  font-size:9px;
+  color:var(--gray);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  font-weight:600;
+  text-align:right;
+}
+.hac-table th:first-child { text-align:left; }
+.hac-table td {
+  padding:7px 8px;
+  font-size:11px;
+  border-bottom:1px solid var(--border);
+  text-align:right;
+  font-family: var(--mono);
+}
+.hac-table td:first-child { text-align:left; }
+.hac-table tr:hover { background: var(--bg3); }
+
+.cat-label { font-size:11px; color:var(--white); font-weight:500; }
+.cat-sub   { font-size:9px; color:var(--gray); margin-top:1px; }
+
+/* ── PROGRESS ── */
+.prog-list { display:flex; flex-direction:column; gap:8px; }
+.prog-item {}
+.prog-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:3px;
+}
+.prog-name {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:10px;
+  color: var(--white);
+  font-weight:500;
+  letter-spacing:0.5px;
+}
+.prog-dot { width:6px; height:6px; border-radius:1px; flex-shrink:0; }
+.prog-vals { font-size:10px; color:var(--gray); font-family:var(--mono); }
+.prog-bg {
+  height:6px;
+  background: var(--bg4);
+  border-radius:1px;
+  overflow:hidden;
+  position:relative;
+}
+.prog-fill {
+  height:100%;
+  border-radius:1px;
+  position:relative;
+  transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+}
+.prog-fill::after {
+  content:'';
+  position:absolute;
+  top:0; right:0;
+  width:3px; height:100%;
+  background: rgba(255,255,255,0.6);
+  border-radius:1px;
+}
+
+/* ── BAR CHART ── */
+.bar-chart {
+  display:flex;
+  align-items:flex-end;
+  gap:6px;
+  height:90px;
+  padding: 0 4px;
+}
+.bar-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; }
+.bar-fill { width:100%; border-radius:1px 1px 0 0; min-height:4px; }
+.bar-val  { font-size:9px; font-family:var(--mono); color:var(--gray); }
+.bar-lbl  { font-size:8px; color:var(--gray2); letter-spacing:0.5px; }
+
+/* ── ZONES ── */
+.zone-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.zone {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  position:relative;
+  border-left: 3px solid transparent;
+}
+.zone.hi  { border-left-color: var(--red); }
+.zone.med { border-left-color: var(--yellow); }
+.zone.lo  { border-left-color: var(--green); }
+.zone-name { font-size:10px; color:var(--gray); margin-bottom:4px; letter-spacing:0.5px; }
+.zone-price { font-size:20px; font-weight:600; font-family:var(--mono); color:var(--white); line-height:1; }
+.zone-unit  { font-size:9px; color:var(--gray2); margin-top:3px; }
+.zone-tag {
+  position:absolute;
+  top:8px; right:8px;
+  font-size:8px;
+  letter-spacing:1px;
+  font-weight:700;
+  padding:2px 5px;
+}
+.zone.hi  .zone-tag { color:var(--red);    background:rgba(255,59,48,0.15); }
+.zone.med .zone-tag { color:var(--yellow); background:rgba(255,215,0,0.1); }
+.zone.lo  .zone-tag { color:var(--green);  background:rgba(0,255,65,0.1); }
+
+/* ── INSUMOS TABLE ── */
+.ins-table { width:100%; border-collapse:collapse; }
+.ins-table th {
+  padding:5px 8px;
+  font-size:9px;
+  color:var(--gray);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  font-weight:600;
+  text-align:right;
+  background: var(--bg3);
+  border-bottom:1px solid var(--border2);
+}
+.ins-table th:first-child { text-align:left; }
+.ins-table td {
+  padding:6px 8px;
+  font-size:11px;
+  border-bottom:1px solid var(--border);
+  text-align:right;
+  font-family:var(--mono);
+}
+.ins-table td:first-child { text-align:left; font-size:11px; color:var(--white); }
+.ins-table tr:hover { background:var(--bg3); }
+.ins-total { background: rgba(255,215,0,0.05) !important; border-top:1px solid var(--yellow) !important; }
+.ins-total td { color:var(--yellow) !important; font-weight:600; border-bottom:none !important; }
+
+/* ── NATIONAL PARTICIPATION ── */
+.part-row {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:6px 0;
+  border-bottom:1px solid var(--border);
+}
+.part-row:last-child { border-bottom:none; }
+.part-crop { width:70px; font-size:10px; color:var(--gray); font-weight:600; letter-spacing:0.5px; }
+.part-bar-bg { flex:1; height:10px; background:var(--bg4); border-radius:1px; overflow:hidden; }
+.part-bar-fill { height:100%; border-radius:1px; }
+.part-pct { width:40px; text-align:right; font-size:11px; font-weight:600; font-family:var(--mono); }
+.part-mt  { width:60px; text-align:right; font-size:10px; color:var(--gray); font-family:var(--mono); }
+
+/* ── API STATUS BAR ── */
+.api-bar {
+  display:flex;
+  align-items:center;
+  gap:16px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  margin-bottom:10px;
+  font-size:9px;
+  letter-spacing:0.5px;
+}
+.api-item { display:flex; align-items:center; gap:5px; color:var(--gray); }
+.api-dot  { width:6px; height:6px; border-radius:50%; }
+.api-dot.live    { background:var(--green); box-shadow:0 0 5px var(--green); }
+.api-dot.scraping{ background:var(--yellow); box-shadow:0 0 5px var(--yellow); }
+.api-dot.static  { background:var(--gray2); }
+.api-dot.error   { background:var(--red); }
+.api-sep { color:var(--border2); }
+.api-last { margin-left:auto; color:var(--gray2); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width:4px; height:4px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
+
+/* ── ANIMATE ── */
+.panel { animation: fadeIn 0.3s ease both; }
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ── CONNECTION OVERLAY ── */
+.conn-overlay {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+  font-family:var(--mono);
+}
+.conn-overlay.hidden { display:none; }
+.conn-box {
+  border: 1px solid var(--green);
+  padding: 40px 60px;
+  text-align:center;
+  box-shadow: 0 0 40px rgba(0,255,65,0.15);
+}
+.conn-title { font-size:14px; color:var(--yellow); letter-spacing:3px; margin-bottom:20px; }
+.conn-log   { font-size:10px; color:var(--green); letter-spacing:1px; line-height:2; }
+.conn-spinner {
+  width:20px; height:20px;
+  border:2px solid var(--green3);
+  border-top-color:var(--green);
+  border-radius:50%;
+  animation:spin 0.8s linear infinite;
+  margin:16px auto;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* ── TABLES COMPARATIVE ── */
+.comp-table { width:100%; border-collapse:collapse; }
+.comp-table th {
+  padding:5px 8px;
+  font-size:9px;
+  color:var(--gray);
+  letter-spacing:1px;
+  text-transform:uppercase;
+  font-weight:600;
+  background:var(--bg3);
+  border-bottom:1px solid var(--border2);
+  text-align:right;
+}
+.comp-table th:first-child { text-align:left; }
+.comp-table td {
+  padding:6px 8px;
+  font-size:11px;
+  border-bottom:1px solid var(--border);
+  text-align:right;
+  font-family:var(--mono);
+}
+.comp-table td:first-child { text-align:left; color:var(--white); }
+.comp-table tr:hover { background:var(--bg3); }
+.comp-table .total-row { background:rgba(255,215,0,0.04) !important; }
+.comp-table .total-row td { color:var(--yellow); font-weight:600; border-top:1px solid var(--yellow); border-bottom:none; }
+
+.hl-green { color:var(--green) !important; }
+.hl-red   { color:var(--red) !important; }
+.hl-yellow{ color:var(--yellow) !important; }
+.hl-gray  { color:var(--gray) !important; }
+
+
+body.light {
+  --bg:     #f0f0f0;
+  --bg1:    #ffffff;
+  --bg2:    #f5f5f5;
+  --bg3:    #ebebeb;
+  --bg4:    #e0e0e0;
+  --border: #cccccc;
+  --border2:#bbbbbb;
+  --green:  #007a1e;
+  --green2: #005c16;
+  --green3: #d4f0dc;
+  --white:  #111111;
+  --gray:   #444444;
+  --gray2:  #666666;
+  --gray3:  #999999;
+}
+body.light .ticker-wrap { background: #d4f0dc; border-bottom: 1px solid #007a1e; }
+body.light .tick-item   { color: #007a1e; }
+body.light .header      { background: #ffffff; }
+body.light .tabs        { background: #ffffff; }
+body.light .panel       { background: #ffffff; }
+body.light .panel-hdr   { background: #f5f5f5; }
+body.light .kpi         { background: #ffffff; }
+body.light .zone        { background: #f5f5f5; }
+body.light .conn-overlay{ background: rgba(255,255,255,0.92); }
+body.light .conn-box    { border-color: #007a1e; }
+body.light .api-bar     { background: #f5f5f5; }
+body.light body::before { display:none; }
+
+
+/* ── CHART MODAL ── */
+.chart-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInModal 0.2s ease;
+}
+@keyframes fadeInModal {
+  from { opacity:0; }
+  to   { opacity:1; }
+}
+.chart-modal {
+  background: var(--bg1);
+  border: 1px solid var(--border2);
+  width: min(720px, 95vw);
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(0,255,65,0.08);
+  animation: slideUp 0.25s ease;
+}
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity:0; }
+  to   { transform: translateY(0);    opacity:1; }
+}
+.chart-modal-hdr {
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chart-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.chart-modal-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 1px;
+}
+.chart-modal-price {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--green);
+  font-family: var(--mono);
+  text-shadow: 0 0 15px rgba(0,255,65,0.3);
+}
+.chart-modal-change {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+.chart-modal-close {
+  background: none;
+  border: 1px solid var(--border2);
+  color: var(--gray);
+  font-size: 16px;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  font-family: var(--mono);
+}
+.chart-modal-close:hover { color: var(--white); border-color: var(--white); }
+
+.chart-periods {
+  display: flex;
+  gap: 4px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+}
+.period-btn {
+  padding: 4px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--mono);
+  letter-spacing: 1px;
+  cursor: pointer;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--gray);
+  transition: all 0.15s;
+}
+.period-btn:hover { color: var(--white); border-color: var(--white); }
+.period-btn.active {
+  background: var(--green3);
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.chart-canvas-wrap {
+  padding: 16px;
+  background: var(--bg1);
+}
+canvas#chartCanvas {
+  width: 100%;
+  height: 220px;
+  display: block;
+}
+
+.chart-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--bg2);
+  font-size: 9px;
+  color: var(--gray2);
+  letter-spacing: 0.5px;
+}
+.chart-stat {
+  display: flex;
+  gap: 20px;
+}
+.chart-stat-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.chart-stat-val  { font-size: 12px; font-weight: 600; color: var(--white); font-family: var(--mono); }
+.chart-stat-lbl  { font-size: 9px; color: var(--gray2); }
+
+/* clickable prices */
+.price-clickable {
+  cursor: pointer;
+  transition: opacity 0.15s;
+  border-bottom: 1px dashed rgba(0,255,65,0.3);
+}
+.price-clickable:hover { opacity: 0.75; }
+body.light .period-btn.active { background: rgba(0,122,30,0.12); }
+
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width: 768px) {
+  .main { padding: 8px; }
+  .kpi-grid { grid-template-columns: repeat(2,1fr); gap:6px; }
+  .kpi-val  { font-size: 20px; }
+  .row      { flex-direction: column; }
+  .col1, .col2, .col3, .col4 { flex: none; width:100%; }
+  .header { padding: 0 10px; height:40px; }
+  .logo   { font-size: 13px; letter-spacing:2px; }
+  .campaign-badge { display:none; }
+  .header-right > span { display:none; }
+  .tabs { padding: 0 8px; }
+  .tab  { padding: 8px 10px; font-size:9px; letter-spacing:0.8px; }
+  .api-bar { flex-wrap:wrap; gap:8px; font-size:8px; }
+  .zone-grid { grid-template-columns:1fr 1fr; }
+  .ticker-wrap { height:24px; }
+  .tick-item { font-size:10px; padding:0 14px; }
+  table { font-size:10px; }
+  th, td { padding:5px 6px; }
+  .comp-table th:nth-child(n+5),
+  .comp-table td:nth-child(n+5),
+  .grain-table th:nth-child(n+5),
+  .grain-table td:nth-child(n+5),
+  .hac-table th:nth-child(n+5),
+  .hac-table td:nth-child(n+5) { display:none; }
+  .chart-modal { width:98vw; }
+  canvas#chartCanvas { height:180px; }
+  .panel-body { padding:8px; }
+  .bar-chart  { height:70px; }
+  .header-status { font-size:9px; }
+  #themeBtn { padding:3px 8px; font-size:9px; }
+}
+
+@media (max-width: 480px) {
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .kpi-val  { font-size:18px; }
+  .kpi-label{ font-size:8px; }
+  .kpi-delta{ font-size:9px; }
+  .zone-grid { grid-template-columns:1fr; }
+  .zone-price{ font-size:16px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- CONNECTION OVERLAY -->
+<div class="conn-overlay" id="connOverlay">
+  <div class="conn-box">
+    <div class="conn-title">AGROTERM INICIANDO</div>
+    <div class="conn-spinner"></div>
+    <div class="conn-log" id="connLog">
+      CONECTANDO CON API LOCAL...<br>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER TAPE -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="tickerTrack">
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo">AGRO<span>TERM</span></div>
+    <div class="header-status">
+      <div class="status-dot" id="connDot"></div>
+      <span id="connLabel">CONECTANDO...</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <button onclick="toggleTheme()" id="themeBtn" style="
+  background:var(--bg3);
+  border:1px solid var(--border2);
+  color:var(--white);
+  font-family:var(--mono);
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:1px;
+  padding:4px 12px;
+  cursor:pointer;
+  transition:all 0.2s;
+">☀ CLARO</button>
+    <div class="campaign-badge">CAMPAÑA 2024/25</div>
+    <span>STA FE + ENTRE RÍOS</span>
+    <div class="header-clock" id="clock">--:--:--</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active"  onclick="showTab('arg')">ARG NACIONAL</div>
+  <div class="tab"         onclick="showTab('cosecha')">COSECHA SF/ER</div>
+  <div class="tab"         onclick="showTab('granos')">GRANOS LIVE</div>
+  <div class="tab"         onclick="showTab('costos')">COSTOS & ARREND.</div>
+  <div class="tab"         onclick="showTab('hacienda')">HACIENDA</div>
+  <div class="tab"         onclick="showTab('cerdos')">PORCINOS</div>
+  <div class="tab"         onclick="showTab('pollos')">AVIAR</div>
+  <div class="tab"         onclick="showTab('lacteos')">LÁCTEOS</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- API STATUS BAR (visible en todas las tabs) -->
+<div class="api-bar" id="apiBar">
+  <div class="api-item"><div class="api-dot" id="dot-rofex"></div><span>MATBA-ROFEX</span></div>
+  <div class="api-sep">|</div>
+  <div class="api-item"><div class="api-dot" id="dot-liniers"></div><span>LINIERS</span></div>
+  <div class="api-sep">|</div>
+  <div class="api-item"><div class="api-dot" id="dot-bcr"></div><span>BCR/GEA</span></div>
+  <div class="api-sep">|</div>
+  <div class="api-item"><div class="api-dot" id="dot-senasa"></div><span>SENASA</span></div>
+  <div class="api-last" id="apiLastUpdate">ÚLTIMA ACT: --</div>
+</div>
+
+<!-- ══════════ ARG NACIONAL ══════════ -->
+<div class="section active" id="sec-arg">
+
+  <div class="kpi-grid">
+    <div class="kpi yellow">
+      <div class="kpi-label">HAS. SEMBRADAS ARG.</div>
+      <div class="kpi-val yellow">42.5<span class="kpi-unit"> M ha</span></div>
+      <div class="kpi-delta up">▲ CAMPAÑA 2024/25</div>
+      <div class="kpi-sub">Fuente BCR/GEA · 2da mayor histórica</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-label">PRODUCCIÓN TOTAL ARG.</div>
+      <div class="kpi-val green">135.7<span class="kpi-unit"> Mt</span></div>
+      <div class="kpi-delta up">▲ +4.1% vs 23/24</div>
+      <div class="kpi-sub">Récord: 141.5 Mt (2018/19)</div>
+    </div>
+    <div class="kpi blue">
+      <div class="kpi-label">PART. SF + ENTRE RÍOS</div>
+      <div class="kpi-val" style="color:var(--blue)">17.8<span class="kpi-unit"> %</span></div>
+      <div class="kpi-delta up">▲ 24.1 Mt / 135.7 Mt nac.</div>
+      <div class="kpi-sub">SF: 11.0% · ER: 6.3%</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-label">EXPORTACIONES EST.</div>
+      <div class="kpi-val green">56.3<span class="kpi-unit"> Mt</span></div>
+      <div class="kpi-delta up">▲ +3% i.a. · Trigo +44%</div>
+      <div class="kpi-sub">Maíz -7.6% por menor área</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col2">
+      <div class="panel">
+        <div class="panel-hdr">
+          <div class="panel-title">PRODUCCIÓN NACIONAL POR CULTIVO — CAMPAÑA 2024/25</div>
+          <div class="panel-meta">BCR / GEA</div>
+        </div>
+        <div class="panel-body" style="padding:0">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>CULTIVO</th>
+                <th>HAS. ARG.</th>
+                <th>PROD. ARG.</th>
+                <th>T/HA</th>
+                <th>SF+ER Mt</th>
+                <th>PART. SF+ER</th>
+                <th>PART. SF</th>
+                <th>PART. ER</th>
+                <th>VAR.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span style="color:var(--yellow)">SOJA</span></td>
+                <td>17.8 M</td>
+                <td class="hl-green">50.3 Mt</td>
+                <td>2.97</td>
+                <td>10.68</td>
+                <td class="hl-yellow">21.2%</td>
+                <td>13.1%</td>
+                <td>8.1%</td>
+                <td class="change-up">▲ +4.2%</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--yellow)">MAÍZ</span></td>
+                <td>8.3 M</td>
+                <td class="hl-green">48.5 Mt</td>
+                <td>5.84</td>
+                <td>8.42</td>
+                <td class="hl-yellow">17.4%</td>
+                <td>10.8%</td>
+                <td>6.6%</td>
+                <td class="change-dn">▼ -7.2%</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--yellow)">TRIGO</span></td>
+                <td>6.9 M</td>
+                <td class="hl-green">20.1 Mt</td>
+                <td>2.91</td>
+                <td>2.54</td>
+                <td class="hl-yellow">12.6%</td>
+                <td>7.8%</td>
+                <td>4.8%</td>
+                <td class="change-up">▲ +39%</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--yellow)">GIRASOL</span></td>
+                <td>2.2 M</td>
+                <td class="hl-green">4.7 Mt</td>
+                <td>2.14</td>
+                <td>1.04</td>
+                <td class="hl-yellow">22.1%</td>
+                <td>13.4%</td>
+                <td>8.7%</td>
+                <td class="change-up">▲ +24.8%</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--yellow)">SORGO</span></td>
+                <td>1.0 M</td>
+                <td class="hl-green">3.2 Mt</td>
+                <td>3.20</td>
+                <td>1.40</td>
+                <td style="color:var(--cyan);font-weight:600">43.8%</td>
+                <td>26.5%</td>
+                <td>17.3%</td>
+                <td class="change-up">▲ +25.5%</td>
+              </tr>
+              <tr class="total-row">
+                <td>TOTAL</td>
+                <td>42.5 M</td>
+                <td>135.7 Mt</td>
+                <td>—</td>
+                <td>24.1</td>
+                <td>17.8%</td>
+                <td>11.0%</td>
+                <td>6.3%</td>
+                <td class="change-up">▲ +4.4%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col1">
+      <div class="panel" style="margin-bottom:10px">
+        <div class="panel-hdr">
+          <div class="panel-title">PARTICIPACIÓN SF+ER / ARG.</div>
+          <div class="panel-meta">% de producción nacional</div>
+        </div>
+        <div class="panel-body">
+          <div id="partBars">
+            <div class="part-row">
+              <div class="part-crop">SORGO</div>
+              <div class="part-bar-bg"><div class="part-bar-fill" style="width:43.8%;background:var(--cyan)"></div></div>
+              <div class="part-pct" style="color:var(--cyan)">43.8%</div>
+              <div class="part-mt hl-gray">1.4 Mt</div>
+            </div>
+            <div class="part-row">
+              <div class="part-crop">GIRASOL</div>
+              <div class="part-bar-bg"><div class="part-bar-fill" style="width:22.1%;background:var(--orange)"></div></div>
+              <div class="part-pct" style="color:var(--orange)">22.1%</div>
+              <div class="part-mt hl-gray">1.0 Mt</div>
+            </div>
+            <div class="part-row">
+              <div class="part-crop">SOJA</div>
+              <div class="part-bar-bg"><div class="part-bar-fill" style="width:21.2%;background:var(--yellow)"></div></div>
+              <div class="part-pct hl-yellow">21.2%</div>
+              <div class="part-mt hl-gray">10.7 Mt</div>
+            </div>
+            <div class="part-row">
+              <div class="part-crop">MAÍZ</div>
+              <div class="part-bar-bg"><div class="part-bar-fill" style="width:17.4%;background:var(--green)"></div></div>
+              <div class="part-pct hl-green">17.4%</div>
+              <div class="part-mt hl-gray">8.4 Mt</div>
+            </div>
+            <div class="part-row">
+              <div class="part-crop">TRIGO</div>
+              <div class="part-bar-bg"><div class="part-bar-fill" style="width:12.6%;background:var(--blue)"></div></div>
+              <div class="part-pct" style="color:var(--blue)">12.6%</div>
+              <div class="part-mt hl-gray">2.5 Mt</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-hdr">
+          <div class="panel-title">HISTÓRICO COSECHAS NACIONALES · Mt</div>
+        </div>
+        <div class="panel-body">
+          <div class="bar-chart">
+            <div class="bar-col"><div class="bar-val">102</div><div class="bar-fill" style="height:55%;background:#1a3a2a"></div><div class="bar-lbl">20/21</div></div>
+            <div class="bar-col"><div class="bar-val">133</div><div class="bar-fill" style="height:80%;background:#1a3a2a"></div><div class="bar-lbl">21/22</div></div>
+            <div class="bar-col"><div class="bar-val" style="color:var(--red)">93</div><div class="bar-fill" style="height:45%;background:rgba(255,59,48,0.25)"></div><div class="bar-lbl" style="color:var(--red)">22/23</div></div>
+            <div class="bar-col"><div class="bar-val">130</div><div class="bar-fill" style="height:78%;background:#1a3a2a"></div><div class="bar-lbl">23/24</div></div>
+            <div class="bar-col"><div class="bar-val" style="color:var(--green)">135.7</div><div class="bar-fill" style="height:82%;background:linear-gradient(180deg,#00ff41,#007a1e)"></div><div class="bar-lbl" style="color:var(--green)">24/25</div></div>
+            <div class="bar-col"><div class="bar-val" style="color:var(--gray2)">141.5</div><div class="bar-fill" style="height:100%;background:rgba(0,180,255,0.12);border:1px dashed #00b4ff44"></div><div class="bar-lbl" style="color:var(--blue)">REC★</div></div>
+          </div>
+          <div style="font-size:8px;color:var(--gray2);margin-top:6px">★ Récord histórico 2018/19</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ COSECHA SF/ER ══════════ -->
+<div class="section" id="sec-cosecha">
+
+  <div class="kpi-grid">
+    <div class="kpi green">
+      <div class="kpi-label">HAS. SEMBRADAS SF+ER</div>
+      <div class="kpi-val green">5.86<span class="kpi-unit"> M ha</span></div>
+      <div class="kpi-delta up">▲ +3.2% vs 23/24</div>
+      <div class="kpi-sub">SF: 3.41M · ER: 2.45M</div>
+    </div>
+    <div class="kpi yellow">
+      <div class="kpi-label">HAS. COSECHADAS</div>
+      <div class="kpi-val yellow">3.12<span class="kpi-unit"> M ha</span></div>
+      <div class="kpi-delta up">▲ 53% avance</div>
+      <div class="kpi-sub">Proj. final: 5.71M ha</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-label">TONELADAS ESTIMADAS</div>
+      <div class="kpi-val green">24.1<span class="kpi-unit"> Mt</span></div>
+      <div class="kpi-delta up">▲ +5.4% vs 23/24</div>
+      <div class="kpi-sub">SF: 13.8 · ER: 8.6 · ER: 1.7</div>
+    </div>
+    <div class="kpi" style="">
+      <div class="kpi-label">RINDE PROMEDIO</div>
+      <div class="kpi-val white">3.92<span class="kpi-unit"> t/ha</span></div>
+      <div class="kpi-delta up" style="color:var(--blue)">▲ +0.18 t/ha vs ant.</div>
+      <div class="kpi-sub">Condición climática: buena</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col2">
+      <div class="panel">
+        <div class="panel-hdr">
+          <div class="panel-title">AVANCE POR CULTIVO — SF + ENTRE RÍOS</div>
+          <div class="panel-meta">BCR / BOLSACER · SEM 11/2026</div>
+        </div>
+        <div class="panel-body">
+          <div class="prog-list">
+            <div class="prog-item">
+              <div class="prog-row">
+                <div class="prog-name"><div class="prog-dot" style="background:#ffd700"></div>SOJA</div>
+                <div class="prog-vals">Semb: 3.20M · Cos: 1.60M · <span style="color:var(--yellow);font-weight:600">50%</span></div>
+              </div>
+              <div class="prog-bg"><div class="prog-fill" style="width:50%;background:linear-gradient(90deg,#7a6800,#ffd700)"></div></div>
+            </div>
+            <div class="prog-item">
+              <div class="prog-row">
+                <div class="prog-name"><div class="prog-dot" style="background:#00ff41"></div>MAÍZ</div>
+                <div class="prog-vals">Semb: 1.10M · Cos: 0.77M · <span style="color:var(--green);font-weight:600">70%</span></div>
+              </div>
+              <div class="prog-bg"><div class="prog-fill" style="width:70%;background:linear-gradient(90deg,#004d14,#00ff41)"></div></div>
+            </div>
+            <div class="prog-item">
+              <div class="prog-row">
+                <div class="prog-name"><div class="prog-dot" style="background:#00b4ff"></div>TRIGO</div>
+                <div class="prog-vals">Semb: 0.82M · Cos: 0.82M · <span style="color:var(--blue);font-weight:600">100%</span></div>
+              </div>
+              <div class="prog-bg"><div class="prog-fill" style="width:100%;background:linear-gradient(90deg,#003d55,#00b4ff)"></div></div>
+            </div>
+            <div class="prog-item">
+              <div class="prog-row">
+                <div class="prog-name"><div class="prog-dot" style="background:#ff8c00"></div>GIRASOL</div>
+                <div class="prog-vals">Semb: 0.48M · Cos: 0.24M · <span style="color:var(--orange);font-weight:600">50%</span></div>
+              </div>
+              <div class="prog-bg"><div class="prog-fill" style="width:50%;background:linear-gradient(90deg,#4d2900,#ff8c00)"></div></div>
+            </div>
+            <div class="prog-item">
+              <div class="prog-row">
+                <div class="prog-name"><div class="prog-dot" style="background:#cc66ff"></div>SORGO</div>
+                <div class="prog-vals">Semb: 0.26M · Cos: 0.19M · <span style="color:#cc66ff;font-weight:600">72%</span></div>
+              </div>
+              <div class="prog-bg"><div class="prog-fill" style="width:72%;background:linear-gradient(90deg,#330066,#cc66ff)"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:10px">
+        <div class="panel-hdr">
+          <div class="panel-title">DETALLE CAMPAÑA 2024/25 — AMBAS PROVINCIAS</div>
+        </div>
+        <div class="panel-body" style="padding:0">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>CULTIVO</th>
+                <th>HAS SEMB.</th>
+                <th>HAS COS.</th>
+                <th>HAS PROY.</th>
+                <th>RINDE</th>
+                <th>PROD Mt</th>
+                <th>VAR.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>SOJA</td><td>3.200.000</td><td>1.600.000</td><td>3.140.000</td><td>3.40 t/ha</td><td class="hl-yellow">10.68</td><td class="change-up">▲ +4.2%</td></tr>
+              <tr><td>MAÍZ</td><td>1.100.000</td><td>770.000</td><td>1.080.000</td><td>7.80 t/ha</td><td class="hl-yellow">8.42</td><td class="change-up">▲ +8.1%</td></tr>
+              <tr><td>TRIGO</td><td>820.000</td><td>820.000</td><td>820.000</td><td>3.10 t/ha</td><td class="hl-green">2.54</td><td class="change-up">▲ +2.8%</td></tr>
+              <tr><td>GIRASOL</td><td>480.000</td><td>240.000</td><td>472.000</td><td>2.20 t/ha</td><td>1.04</td><td class="change-dn">▼ -1.5%</td></tr>
+              <tr><td>SORGO</td><td>260.000</td><td>187.000</td><td>255.000</td><td>5.50 t/ha</td><td class="hl-green">1.40</td><td class="change-up">▲ +6.5%</td></tr>
+              <tr class="total-row"><td>TOTAL</td><td>5.860.000</td><td>3.617.000</td><td>5.767.000</td><td>—</td><td>24.08</td><td class="change-up">▲ +5.4%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col1">
+      <div class="panel">
+        <div class="panel-hdr">
+          <div class="panel-title">COMPARATIVO Mt TOTALES · SF</div>
+        </div>
+        <div class="panel-body">
+          <div class="bar-chart">
+            <div class="bar-col"><div class="bar-val">11.2</div><div class="bar-fill" style="height:62%;background:#1a2a1a"></div><div class="bar-lbl">22/23</div></div>
+            <div class="bar-col"><div class="bar-val">12.6</div><div class="bar-fill" style="height:73%;background:#1a2a1a"></div><div class="bar-lbl">23/24</div></div>
+            <div class="bar-col"><div class="bar-val" style="color:var(--green)">13.8</div><div class="bar-fill" style="height:100%;background:linear-gradient(180deg,#00ff41,#007a1e)"></div><div class="bar-lbl" style="color:var(--green)">24/25</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:10px">
+        <div class="panel-hdr">
+          <div class="panel-title">COMPARATIVO Mt TOTALES · ER</div>
+        </div>
+        <div class="panel-body">
+          <div class="bar-chart">
+            <div class="bar-col"><div class="bar-val">6.8</div><div class="bar-fill" style="height:65%;background:#1a2a1a"></div><div class="bar-lbl">22/23</div></div>
+            <div class="bar-col"><div class="bar-val">7.9</div><div class="bar-fill" style="height:80%;background:#1a2a1a"></div><div class="bar-lbl">23/24</div></div>
+            <div class="bar-col"><div class="bar-val" style="color:var(--cyan)">8.6</div><div class="bar-fill" style="height:100%;background:linear-gradient(180deg,#00e5ff,#007799)"></div><div class="bar-lbl" style="color:var(--cyan)">24/25</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:10px">
+        <div class="panel-hdr"><div class="panel-title">FUENTES</div></div>
+        <div class="panel-body" style="font-size:9px;line-height:2;color:var(--gray)">
+          <div>● BCR / GEA — Cosecha Semanal</div>
+          <div>● BOLSACER — Entre Ríos</div>
+          <div>● MAGYP — Has. nacionales</div>
+          <div>● Actualización: <span style="color:var(--yellow)">SEMANAL (Jueves)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ GRANOS LIVE ══════════ -->
+<div class="section" id="sec-granos">
+
+  <div class="row">
+    <div class="col2">
+      <div class="panel">
+        <div class="panel-hdr">
+          <div class="panel-title">PRECIOS GRANOS — TIEMPO REAL</div>
+          <div class="panel-meta" id="granosSource">MATBA-ROFEX WEBSOCKET</div>
+        </div>
+        <div class="panel-body" style="padding:0">
+          <table class="grain-table">
+            <thead>
+              <tr>
+                <th>INSTRUMENTO</th>
+                <th>ÚLTIMO</th>
+                <th>APERTURA</th>
+                <th>MÁX</th>
+                <th>MÍN</th>
+                <th>VAR. $</th>
+                <th>VAR. %</th>
+                <th>HORA</th>
+                <th>7D</th>
+              </tr>
+            </thead>
+            <tbody id="granosTbody">
+              <!-- populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:10px">
+        <div class="panel-hdr">
+          <div class="panel-title">PRECIOS CHICAGO (CBOT) — REFERENCIA USD</div>
+          <div class="panel-meta">FUTUROS</div>
+        </div>
+        <div class="panel-body" style="padding:0">
+          <table class="grain-table">
+            <thead>
+              <tr>
+                <th>INSTRUMENTO</th>
+                <th>POSICIÓN</th>
+                <th>ÚLTIMO USD</th>
+                <th>VAR. %</th>
+                <th>HORA</th>
+              </tr>
+            </thead>
+            <tbody id="cbotTbody">
+              <!-- populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col1">
+      <div class="panel">
+        <div class="panel-hdr"><div class="panel-title">COMPARATIVO CAMPAÑAS $/t</div></div>
+        <div class="panel-body" style="padding:0">
+          <table class="comp-table">
+            <thead><tr><th>CULTIVO</th><th>22/23</th><th>23/24</th><th>24/25</th><th>VAR.</th></tr></thead>
+            <tbody>
+              <tr><td>SOJA</td><td>248.000</td><td>310.000</td><td class="hl-yellow" id="sojaProm">390.500</td><td class="change-up">▲ +25.9%</td></tr>
+              <tr><td>MAÍZ</td><td>138.000</td><td>175.000</td><td class="hl-yellow" id="maizProm">218.000</td><td class="change-up">▲ +24.6%</td></tr>
+              <tr><td>TRIGO</td><td>118.000</td><td>162.000</td><td class="hl-yellow" id="trigoProm">205.000</td><td class="change-up">▲ +26.5%</td></tr>
+              <tr><td>GIRASOL</td><td>218.000</td><td>295.000</td><td class="hl-yellow" id="girasolProm">348.000</td><td class="change-up">▲ +17.9%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:10px">
+        <div class="panel-hdr"><div class="panel-title">TIPO DE CAMBIO REFERENCIA</div></div>
+        <div class="panel-body">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:7px">
+              <span style="font-size:10px;color:var(--gray)">USD OFICIAL BNA</span>
+              <span class="hl-green" style="font-size:16px;font-weight:600" id="usdOficial">$1.065</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:7px">
+              <span style="font-size:10px;color:var(--gray)">USD MEP / BOLSA</span>
+              <span style="color:var(--blue);font-size:16px;font-weight:600" id="usdMep">$1.078</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:10px;color:var(--gray)">USD CCL</span>
+              <span style="color:var(--orange);font-size:16px;font-weight:600" id="usdCcl">$1.082</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">
+              <span style="font-size:10px;color:var(--gray)">USD BLUE</span>
+              <span style="color:var(--red);font-size:16px;font-weight:600" id="usdBlue">—</span>
+            </div>
+            <div style="margin-top:8px;font-size:9px;color:var(--gray2);text-align:right" id="fxSource">Actualizando...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:10px">
+        <div class="panel-hdr"><div class="panel-title">ESTADO CONEXIÓN ROFEX</div></div>
+        <div class="panel-body" style="font-size:9px;line-height:2.2;color:var(--gray)" id="rofexLog">
+          ESPERANDO CONEXIÓN...
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ COSTOS ══════════ -->
+<div class="section" id="sec-costos">
+  <div class="row">
+    <div class="col1">
+      <div class="panel">
+        <div class="panel-hdr">
+          <div class="panel-title">ARRENDAMIENTO — SANTA FE</div>
+          <div class="panel-meta">qq soja/ha/año · BCR 2024/25</div>
+        </div>
+        <div class="panel-body">
+          <div class="zone-grid">
+            <div class="zone hi"><div class="zone-tag">MÁS ALTO</div><div class="zone-name">ZONA NÚCLEO · SUR SF</div><div class="zone-price">17–20</div><div class="zone-unit">qq soja/ha · ~$175k/ha</div></div>
+            <div class="zone med"><div class="zone-tag">ALTO</div><div class="zone-name">CENTRO SF · STA FE</div><div class="zone-price">14–17</div><div class="zone-unit">qq soja/ha · ~$149k/ha</div></div>
+            <div class="zone med"><div class="zone-tag">MEDIO</div><div class="zone-name">NORTE SF · RAFAELA</div><div class="zone-price">12–15</div><div class="zone-unit">qq soja/ha · ~$132k/ha</div></div>
+            <div class="zone med"><div class="zone-tag">ALTO</div><div class="zone-name">SUR SF · VENADO T.</div><div class="zone-price">14–18</div><div class="zone-unit">qq soja/ha · ~$158k/ha · suelos clase 1-2</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col1">
+      <div class="panel">
+        <div class="panel-hdr">
+          <div class="panel-title">ARRENDAMIENTO — ENTRE RÍOS</div>
+          <div class="panel-meta">qq soja/ha/año · BCERA 2024/25</div>
+        </div>
+        <div class="panel-body">
+          <div class="zone-grid">
+            <div class="zone med"><div class="zone-tag">ALTO</div><div class="zone-name">SUR ER · GUALEGUAYCHÚ</div><div class="zone-price">11–14</div><div class="zone-unit">qq soja/ha · suelos buenos</div></div>
+            <div class="zone med"><div class="zone-tag">MEDIO</div><div class="zone-name">CENTRO ER · PARANÁ</div><div class="zone-price">9–12</div><div class="zone-unit">qq soja/ha · ~$105k/ha</div></div>
+            <div class="zone lo"><div class="zone-tag">MODERADO</div><div class="zone-name">VICTORIA / GUALEGUAY</div><div class="zone-price">6–10</div><div class="zone-unit">qq soja/ha · aptitud parcial</div></div>
+            <div class="zone lo"><div class="zone-tag">MENOR</div><div class="zone-name">NORTE ER · FEDERACIÓN</div><div class="zone-price">4–7</div><div class="zone-unit">qq soja/ha · ~$55k/ha</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col1">
+      <div class="panel">
+        <div class="panel-hdr">
+          <div class="panel-title">INSUMOS PRINCIPALES — $/HA SOJA 2024/25</div>
+        </div>
+        <div class="panel-body" style="padding:0">
+          <table class="ins-table">
+            <thead><tr><th>INSUMO</th><th>DOSIS</th><th>$/UNIDAD</th><th>$/HA</th><th>% COSTO</th><th>VAR.</th></tr></thead>
+            <tbody>
+              <tr><td>SEMILLA SOJA RR</td><td>65 kg</td><td>$3.200</td><td class="hl-yellow">$208.000</td><td>18%</td><td class="change-up">▲ +22%</td></tr>
+              <tr><td>GLIFOSATO 4L</td><td>4 L</td><td>$8.500</td><td class="hl-yellow">$34.000</td><td>3%</td><td class="change-up">▲ +18%</td></tr>
+              <tr><td>HERBICIDA SELECT.</td><td>2.5 L</td><td>$22.000</td><td class="hl-yellow">$55.000</td><td>5%</td><td class="change-up">▲ +15%</td></tr>
+              <tr><td>INSECTICIDA</td><td>150 cc</td><td>$480/cc</td><td class="hl-yellow">$72.000</td><td>6%</td><td class="change-up">▲ +20%</td></tr>
+              <tr><td>FERTILIZANTE MAP</td><td>60 kg</td><td>$1.850</td><td class="hl-yellow">$111.000</td><td>10%</td><td class="change-up">▲ +28%</td></tr>
+              <tr><td>SIEMBRA + PULV. + COSECHA</td><td>—</td><td>—</td><td class="hl-yellow">$198.000</td><td>17%</td><td class="change-up">▲ +32%</td></tr>
+              <tr><td>FLETE A PUERTO</td><td>3.4 t</td><td>$38.000/t</td><td class="hl-yellow">$129.000</td><td>11%</td><td class="change-up">▲ +25%</td></tr>
+              <tr class="ins-total"><td>TOTAL DIRECTO (sin arrendamiento)</td><td colspan="2"></td><td>$807.000</td><td>70%</td><td class="change-up">▲ +24%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ HACIENDA ══════════ -->
+<div class="section" id="sec-hacienda">
+  <div class="kpi-grid">
+    <div class="kpi green">
+      <div class="kpi-label">NOVILLO ESP. — LINIERS</div>
+      <div class="kpi-val green price-clickable" id="hac-novEsp" onclick="openChartModal('Novillo Especial','Liniers / Cañuelas','🐄',4750,85,1.8,'Mercado Liniers / Cañuelas')">$4.750<span class="kpi-unit">/kg</span></div>
+      <div class="kpi-delta up" id="hac-novEspVar">▲ +8.4% vs año ant.</div>
+      <div class="kpi-sub" id="hac-novEspTs">Cargando...</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-label">NOVILLITO — LINIERS</div>
+      <div class="kpi-val green price-clickable" id="hac-novillito" onclick="openChartModal('Novillito','Liniers / Cañuelas','🐄',5400,120,2.3,'Mercado Liniers / Cañuelas')">$5.400<span class="kpi-unit">/kg</span></div>
+      <div class="kpi-delta up" id="hac-novillitoVar">▲ +7.1% vs año ant.</div>
+      <div class="kpi-sub" id="hac-novillitoTs">Cargando...</div>
+    </div>
+    <div class="kpi yellow">
+      <div class="kpi-label">TERNERO INVERNADA</div>
+      <div class="kpi-val yellow price-clickable" id="hac-ternero" onclick="openChartModal('Ternero Invernada','Liniers / Cañuelas','🐄',6200,150,2.5,'Mercado Liniers / Cañuelas')">$6.200<span class="kpi-unit">/kg</span></div>
+      <div class="kpi-delta up" id="hac-terneroVar">▲ +11.2% vs año ant.</div>
+      <div class="kpi-sub" id="hac-terneroTs">Cargando...</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">VACA CONSUMO</div>
+      <div class="kpi-val white price-clickable" id="hac-vaca" onclick="openChartModal('Vaca Consumo','Liniers / Cañuelas','🐄',3800,60,1.6,'Mercado Liniers / Cañuelas')">$3.800<span class="kpi-unit">/kg</span></div>
+      <div class="kpi-delta up" id="hac-vacaVar">▲ +5.2% vs año ant.</div>
+      <div class="kpi-sub" id="hac-vacaTs">Cargando...</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col2">
+      <div class="panel">
+        <div class="panel-hdr">
+          <div class="panel-title">CATEGORÍAS — HACIENDA VACUNA</div>
+          <div class="panel-meta" id="hacFuente">LINIERS · CAÑUELAS · ROSARIO</div>
+        </div>
+        <div class="panel-body" style="padding:0">
+          <table class="hac-table">
+            <thead>
+              <tr>
+                <th>CATEGORÍA</th>
+                <th>$/KG PIE</th>
+                <th>MÍN HOY</th>
+                <th>MÁX HOY</th>
+                <th>VAR. HOY</th>
+                <th>VAR. AÑO</th>
+                <th>ACTUALIZ.</th>
+              </tr>
+            </thead>
+            <tbody id="hacTbody">
+              <!-- populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col1">
+      <div class="panel">
+        <div class="panel-hdr"><div class="panel-title">ÍNDICE HISTÓRICO HACIENDA · base 100 = ene 2023</div></div>
+        <div class="panel-body">
+          <div class="bar-chart" style="height:100px">
+            <div class="bar-col"><div class="bar-val">100</div><div class="bar-fill" style="height:37%;background:#1a2a1a"></div><div class="bar-lbl">Ene23</div></div>
+            <div class="bar-col"><div class="bar-val">118</div><div class="bar-fill" style="height:44%;background:#1a2a1a"></div><div class="bar-lbl">Mar23</div></div>
+            <div class="bar-col"><div class="bar-val">145</div><div class="bar-fill" style="height:54%;background:#1a2a1a"></div><div class="bar-lbl">Jun23</div></div>
+            <div class="bar-col"><div class="bar-val">162</div><div class="bar-fill" style="height:60%;background:#1a2a1a"></div><div class="bar-lbl">Sep23</div></div>
+            <div class="bar-col"><div class="bar-val">190</div><div class="bar-fill" style="height:71%;background:#1e3020"></div><div class="bar-lbl">Dic23</div></div>
+            <div class="bar-col"><div class="bar-val">218</div><div class="bar-fill" style="height:81%;background:#1e3020"></div><div class="bar-lbl">Mar24</div></div>
+            <div class="bar-col"><div class="bar-val">242</div><div class="bar-fill" style="height:90%;background:#1e3020"></div><div class="bar-lbl">Sep24</div></div>
+            <div class="bar-col"><div class="bar-val" style="color:var(--green)">268</div><div class="bar-fill" style="height:100%;background:linear-gradient(180deg,#00ff41,#007a1e)"></div><div class="bar-lbl" style="color:var(--green)">Mar25</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:10px">
+        <div class="panel-hdr"><div class="panel-title">COMPARATIVO AÑOS · $/KG PIE</div></div>
+        <div class="panel-body" style="padding:0">
+          <table class="comp-table">
+            <thead><tr><th>CATEGORÍA</th><th>2023</th><th>2024</th><th>2025</th><th>VAR.</th></tr></thead>
+            <tbody>
+              <tr><td>NOV. ESP.</td><td>2.200</td><td>3.500</td><td class="hl-green">4.750</td><td class="change-up">▲ +35.7%</td></tr>
+              <tr><td>NOVILLITO</td><td>2.100</td><td>3.800</td><td class="hl-green">5.400</td><td class="change-up">▲ +42.1%</td></tr>
+              <tr><td>VACA</td><td>1.600</td><td>2.800</td><td class="hl-green">3.800</td><td class="change-up">▲ +35.7%</td></tr>
+              <tr><td>TERNERO</td><td>2.800</td><td>4.500</td><td class="hl-yellow">6.200</td><td class="change-up">▲ +37.7%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CERDOS ══════════ -->
+<div class="section" id="sec-cerdos">
+  <div class="kpi-grid">
+    <div class="kpi green"><div class="kpi-label">CAPÓN EN PIE</div><div class="kpi-val green">$2.450<span class="kpi-unit">/kg</span></div><div class="kpi-delta up">▲ +12.5% vs año ant.</div><div class="kpi-sub">Promedio ponderado nacional</div></div>
+    <div class="kpi yellow"><div class="kpi-label">LECHÓN EN PIE</div><div class="kpi-val yellow">$3.180<span class="kpi-unit">/kg</span></div><div class="kpi-delta up">▲ +9.8% vs año ant.</div><div class="kpi-sub">Demanda estacional alta</div></div>
+    <div class="kpi green"><div class="kpi-label">CAPÓN — FAENA CANAL</div><div class="kpi-val green">$4.820<span class="kpi-unit">/kg</span></div><div class="kpi-delta up">▲ +11.2% vs año ant.</div><div class="kpi-sub">Canal caliente</div></div>
+    <div class="kpi red"><div class="kpi-label">COSTO PRODUCCIÓN</div><div class="kpi-val red">$2.120<span class="kpi-unit">/kg</span></div><div class="kpi-delta dn">▼ Margen: ~$330/kg (13%)</div><div class="kpi-sub">Alimento + sanidad</div></div>
+  </div>
+  <div class="row">
+    <div class="col2">
+      <div class="panel">
+        <div class="panel-hdr"><div class="panel-title">CATEGORÍAS PORCINAS — PRECIOS EN PIE</div><div class="panel-meta">UNICA / SENASA</div></div>
+        <div class="panel-body" style="padding:0">
+          <table class="hac-table">
+            <thead><tr><th>CATEGORÍA</th><th>$/KG PIE</th><th>VAR. HOY</th><th>2023</th><th>2024</th><th>2025</th><th>VAR. AÑO</th></tr></thead>
+            <tbody>
+              <tr><td><div class="cat-label">Capón 90–110 kg</div><div class="cat-sub">Consumo / faena principal</div></td><td class="hl-green">$2.450</td><td class="change-up">▲ +0.4%</td><td>1.120</td><td>2.178</td><td class="hl-yellow">2.450</td><td class="change-up">▲ +12.5%</td></tr>
+              <tr><td><div class="cat-label">Capón pesado +120 kg</div><div class="cat-sub">Industria / chacinados</div></td><td class="hl-green">$2.280</td><td class="change-up">▲ +0.2%</td><td>1.040</td><td>2.058</td><td class="hl-yellow">2.280</td><td class="change-up">▲ +10.8%</td></tr>
+              <tr><td><div class="cat-label">Lechón hasta 25 kg</div><div class="cat-sub">Consumo especial</div></td><td class="hl-yellow">$3.180</td><td class="change-up">▲ +1.1%</td><td>1.580</td><td>2.896</td><td class="hl-yellow">3.180</td><td class="change-up">▲ +9.8%</td></tr>
+              <tr><td><div class="cat-label">Cerda descarte</div><div class="cat-sub">Faena industrial</div></td><td>$1.980</td><td class="change-up">▲ +0.3%</td><td>960</td><td>1.830</td><td class="hl-yellow">1.980</td><td class="change-up">▲ +8.2%</td></tr>
+              <tr><td><div class="cat-label">Verraco</div><div class="cat-sub">Descarte</div></td><td>$1.820</td><td>—</td><td>880</td><td>1.716</td><td class="hl-yellow">1.820</td><td class="change-up">▲ +6.1%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col1">
+      <div class="panel">
+        <div class="panel-hdr"><div class="panel-title">FAENA MENSUAL — CABEZAS</div></div>
+        <div class="panel-body">
+          <div class="bar-chart" style="height:90px">
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">4.8M</div><div class="bar-fill" style="height:70%;background:#1e2a1e"></div><div class="bar-lbl">Mar24</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">5.1M</div><div class="bar-fill" style="height:77%;background:#1e2a1e"></div><div class="bar-lbl">Jun24</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">5.4M</div><div class="bar-fill" style="height:82%;background:#1e2a1e"></div><div class="bar-lbl">Sep24</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">5.8M</div><div class="bar-fill" style="height:88%;background:#1e2a1e"></div><div class="bar-lbl">Dic24</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px;color:var(--green)">6.6M</div><div class="bar-fill" style="height:100%;background:linear-gradient(180deg,#00ff41,#007a1e)"></div><div class="bar-lbl" style="color:var(--green)">Mar25</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ POLLOS ══════════ -->
+<div class="section" id="sec-pollos">
+  <div class="kpi-grid">
+    <div class="kpi green"><div class="kpi-label">PARRILLERO VIVO</div><div class="kpi-val green">$1.280<span class="kpi-unit">/kg</span></div><div class="kpi-delta up">▲ +14.2% vs año ant.</div><div class="kpi-sub">2.8–3.2 kg promedio</div></div>
+    <div class="kpi green"><div class="kpi-label">POLLO FAENA MAYOR.</div><div class="kpi-val green">$2.450<span class="kpi-unit">/kg</span></div><div class="kpi-delta up">▲ +13.8% vs año ant.</div><div class="kpi-sub">Fresco entero en planta</div></div>
+    <div class="kpi yellow"><div class="kpi-label">POLLITO BB</div><div class="kpi-val yellow">$1.850<span class="kpi-unit">/unid</span></div><div class="kpi-delta up">▲ +22.1% vs año ant.</div><div class="kpi-sub">Incubadoras · Ross 308</div></div>
+    <div class="kpi"><div class="kpi-label">COSTO PRODUCCIÓN</div><div class="kpi-val white">$980<span class="kpi-unit">/kg</span></div><div class="kpi-delta up" style="color:var(--blue)">▲ Margen: ~$300/kg (23%)</div><div class="kpi-sub">Alimento + sanidad + energía</div></div>
+  </div>
+  <div class="row">
+    <div class="col2">
+      <div class="panel">
+        <div class="panel-hdr"><div class="panel-title">CATEGORÍAS / PRESENTACIONES — AVIAR</div><div class="panel-meta">SENASA / CEPA</div></div>
+        <div class="panel-body" style="padding:0">
+          <table class="hac-table">
+            <thead><tr><th>PRODUCTO</th><th>PRECIO</th><th>UNIDAD</th><th>2023</th><th>2024</th><th>2025</th><th>VAR. AÑO</th></tr></thead>
+            <tbody>
+              <tr><td><div class="cat-label">Parrillero vivo en granja</div><div class="cat-sub">2.8–3.2 kg promedio</div></td><td class="hl-green">$1.280</td><td class="hl-gray">/kg</td><td>520</td><td>1.121</td><td class="hl-yellow">1.280</td><td class="change-up">▲ +14.2%</td></tr>
+              <tr><td><div class="cat-label">Pollo entero frío mayorista</div><div class="cat-sub">Planta frigorífica</div></td><td class="hl-green">$2.450</td><td class="hl-gray">/kg</td><td>980</td><td>2.153</td><td class="hl-yellow">2.450</td><td class="change-up">▲ +13.8%</td></tr>
+              <tr><td><div class="cat-label">Huevo · docena cat. A</div><div class="cat-sub">Mayorista / minorista</div></td><td class="hl-yellow">$4.280</td><td class="hl-gray">/doc.</td><td>1.240</td><td>3.616</td><td class="hl-yellow">4.280</td><td class="change-up">▲ +18.4%</td></tr>
+              <tr><td><div class="cat-label">Pollito BB (Ross 308)</div><div class="cat-sub">Incubadora</div></td><td class="hl-yellow">$1.850</td><td class="hl-gray">/unid.</td><td>480</td><td>1.515</td><td class="hl-yellow">1.850</td><td class="change-up">▲ +22.1%</td></tr>
+              <tr><td><div class="cat-label">Pechuga sin hueso</div><div class="cat-sub">Industria / retail</div></td><td class="hl-green">$4.850</td><td class="hl-gray">/kg</td><td>1.820</td><td>4.175</td><td class="hl-yellow">4.850</td><td class="change-up">▲ +16.2%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col1">
+      <div class="panel">
+        <div class="panel-hdr"><div class="panel-title">FAENA ANUAL · MILLONES DE POLLOS</div></div>
+        <div class="panel-body">
+          <div class="bar-chart" style="height:90px">
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">1.18B</div><div class="bar-fill" style="height:80%;background:#1e2a1e"></div><div class="bar-lbl">2022</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">1.22B</div><div class="bar-fill" style="height:85%;background:#1e2a1e"></div><div class="bar-lbl">2023</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">1.27B</div><div class="bar-fill" style="height:90%;background:#1e2a1e"></div><div class="bar-lbl">2024</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px;color:var(--yellow)">1.41B</div><div class="bar-fill" style="height:100%;background:linear-gradient(180deg,#ffd700,#7a6800)"></div><div class="bar-lbl" style="color:var(--yellow)">2025p</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════ LÁCTEOS ══════════ -->
+<div class="section" id="sec-lacteos">
+
+  <div class="kpi-grid">
+    <div class="kpi green">
+      <div class="kpi-label">LECHE AL PRODUCTOR · NACIONAL</div>
+      <div class="kpi-val green">USD 0.374<span class="kpi-unit">/litro</span></div>
+      <div class="kpi-delta up">▲ Panel 18 empresas · Jul 2025</div>
+      <div class="kpi-sub">OCLA · TC Mayorista $1.267/USD</div>
+    </div>
+    <div class="kpi yellow">
+      <div class="kpi-label">LECHE EN POLVO ENTERA · GDT</div>
+      <div class="kpi-val yellow">USD 4.169<span class="kpi-unit">/t</span></div>
+      <div class="kpi-delta up">▲ +4.1% última subasta GDT</div>
+      <div class="kpi-sub">Fonterra · Principal export. arg.</div>
+    </div>
+    <div class="kpi" style="">
+      <div class="kpi-label">LECHE EN POLVO DESCREMADA · GDT</div>
+      <div class="kpi-val" style="color:var(--blue)">USD 2.835<span class="kpi-unit">/t</span></div>
+      <div class="kpi-delta up" style="color:var(--blue)">▲ +4.7% última subasta GDT</div>
+      <div class="kpi-sub">Fonterra · GDT subasta quincenal</div>
+    </div>
+    <div class="kpi red">
+      <div class="kpi-label">PRECIO REAL CONSTANTE</div>
+      <div class="kpi-val red">MÍN 5 AÑOS<span class="kpi-unit"> 1T25</span></div>
+      <div class="kpi-delta dn">▼ Precios 1T2025 más bajos en 5 años</div>
+      <div class="kpi-sub">OCLA · Marzo 2025 en $ constantes</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col2">
+      <!-- PRECIO AL PRODUCTOR POR CUENCA -->
+      <div class="panel" style="margin-bottom:10px">
+        <div class="panel-hdr">
+          <div class="panel-title">PRECIO AL PRODUCTOR POR CUENCA — $/LITRO</div>
+          <div class="panel-meta">OCLA / SIGLeA · 2025</div>
+        </div>
+        <div class="panel-body" style="padding:0">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>CUENCA</th>
+                <th>PROVINCIA</th>
+                <th>$/LITRO HOY</th>
+                <th>USD/LITRO</th>
+                <th>2024 PROM.</th>
+                <th>2023 PROM.</th>
+                <th>VAR. AÑO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span style="color:var(--yellow)">ABASTO SUR</span></td>
+                <td style="color:var(--gray)">Santa Fe / Bs.As.</td>
+                <td class="hl-green" style="font-size:13px;font-weight:600">$502</td>
+                <td style="color:var(--blue)">USD 0.396</td>
+                <td>$418</td>
+                <td>$198</td>
+                <td class="change-up">▲ +20.1%</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--yellow)">ENTRE RÍOS</span></td>
+                <td style="color:var(--gray)">Entre Ríos</td>
+                <td class="hl-green" style="font-size:13px;font-weight:600">$478</td>
+                <td style="color:var(--blue)">USD 0.377</td>
+                <td>$392</td>
+                <td>$185</td>
+                <td class="change-up">▲ +21.9%</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--yellow)">CÓRDOBA NORTE</span></td>
+                <td style="color:var(--gray)">Córdoba</td>
+                <td class="hl-yellow" style="font-size:13px;font-weight:600">$524</td>
+                <td style="color:var(--blue)">USD 0.413</td>
+                <td>$435</td>
+                <td>$206</td>
+                <td class="change-up">▲ +20.5%</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--yellow)">MAR Y SIERRAS</span></td>
+                <td style="color:var(--gray)">Buenos Aires</td>
+                <td style="font-size:13px;font-weight:600">$458</td>
+                <td style="color:var(--blue)">USD 0.361</td>
+                <td>$374</td>
+                <td>$176</td>
+                <td class="change-up">▲ +22.4%</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--gray2)">PROMEDIO NAC.</span></td>
+                <td style="color:var(--gray)">Argentina</td>
+                <td style="font-size:13px;font-weight:600;color:var(--white)">$474</td>
+                <td style="color:var(--blue)">USD 0.374</td>
+                <td>$389</td>
+                <td>$183</td>
+                <td class="change-up">▲ +21.9%</td>
+              </tr>
+              <tr>
+                <td colspan="2" style="color:var(--gray2);font-size:9px">Amplitud máx-mín entre cuencas</td>
+                <td colspan="2" style="color:var(--red);font-size:10px;font-weight:600">$78/litro · 17.6%</td>
+                <td colspan="3" style="color:var(--gray2);font-size:9px">Mayor: Córdoba Norte · Menor: Mar y Sierras</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- LECHE EN POLVO INTERNACIONAL -->
+      <div class="panel">
+        <div class="panel-hdr">
+          <div class="panel-title">LECHE EN POLVO — PRECIOS INTERNACIONALES GDT/FONTERRA</div>
+          <div class="panel-meta">USD/TONELADA · Subasta quincenal</div>
+        </div>
+        <div class="panel-body" style="padding:0">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>PRODUCTO</th>
+                <th>ÚLTIMO GDT</th>
+                <th>VAR. SUBASTA</th>
+                <th>2023 PROM.</th>
+                <th>2024 PROM.</th>
+                <th>MÁX HIST.</th>
+                <th>TENDENCIA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span style="color:var(--yellow)">LPE · ENTERA</span></td>
+                <td class="hl-yellow price-clickable" style="font-size:13px;font-weight:600" onclick="openChartModal('LPE · Leche en Polvo Entera','GDT/Fonterra','🥛',4169000,170929,4.1,'GDT Fonterra')">USD 4.169</td>
+                <td class="change-up">▲ +4.1%</td>
+                <td>USD 3.200</td>
+                <td>USD 3.650</td>
+                <td style="color:var(--gray)">USD 4.757 (Mar22)</td>
+                <td class="change-up">▲ SUBA</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--blue)">LPD · DESCREMADA</span></td>
+                <td style="color:var(--blue);font-size:13px;font-weight:600">USD 2.835</td>
+                <td class="change-up">▲ +4.7%</td>
+                <td>USD 2.450</td>
+                <td>USD 2.680</td>
+                <td style="color:var(--gray)">USD 4.240 (Jun22)</td>
+                <td class="change-up">▲ SUBA</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--orange)">MANTECA</span></td>
+                <td style="color:var(--orange);font-size:13px;font-weight:600">USD 6.068</td>
+                <td class="change-up">▲ +5.6%</td>
+                <td>USD 4.850</td>
+                <td>USD 5.200</td>
+                <td style="color:var(--gray)">USD 7.250 (Oct22)</td>
+                <td class="change-up">▲ SUBA</td>
+              </tr>
+              <tr>
+                <td><span style="color:var(--green)">ÍNDICE GDT GLOBAL</span></td>
+                <td class="hl-green" style="font-size:13px;font-weight:600">USD 4.296</td>
+                <td class="change-up">▲ +3.7%</td>
+                <td>USD 3.623</td>
+                <td>USD 3.900</td>
+                <td style="color:var(--gray)">USD 4.656 (2022)</td>
+                <td class="change-up">▲ SUBA</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col1">
+      <!-- COMPARATIVO CUENCAS -->
+      <div class="panel" style="margin-bottom:10px">
+        <div class="panel-hdr">
+          <div class="panel-title">PRECIO PRODUCTOR · SF vs ER</div>
+          <div class="panel-meta">$/litro · comparativo</div>
+        </div>
+        <div class="panel-body">
+          <div style="margin-bottom:14px">
+            <div style="font-size:9px;color:var(--gray);letter-spacing:1px;margin-bottom:8px">CUENCA ABASTO SUR (SANTA FE)</div>
+            <div class="prog-bg"><div class="prog-fill" style="width:96%;background:linear-gradient(90deg,#7a6800,#ffd700)"></div></div>
+            <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px">
+              <span style="color:var(--yellow);font-weight:600">$502/litro</span>
+              <span style="color:var(--gray)">USD 0.396</span>
+            </div>
+          </div>
+          <div style="margin-bottom:14px">
+            <div style="font-size:9px;color:var(--gray);letter-spacing:1px;margin-bottom:8px">ENTRE RÍOS</div>
+            <div class="prog-bg"><div class="prog-fill" style="width:91%;background:linear-gradient(90deg,#004d14,#00ff41)"></div></div>
+            <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px">
+              <span style="color:var(--green);font-weight:600">$478/litro</span>
+              <span style="color:var(--gray)">USD 0.377</span>
+            </div>
+          </div>
+          <div style="margin-bottom:14px">
+            <div style="font-size:9px;color:var(--gray);letter-spacing:1px;margin-bottom:8px">PROMEDIO NACIONAL</div>
+            <div class="prog-bg"><div class="prog-fill" style="width:90%;background:linear-gradient(90deg,#003d55,#00b4ff)"></div></div>
+            <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px">
+              <span style="color:var(--blue);font-weight:600">$474/litro</span>
+              <span style="color:var(--gray)">USD 0.374</span>
+            </div>
+          </div>
+          <div style="padding:8px;background:rgba(255,59,48,0.08);border-left:2px solid var(--red);font-size:9px;color:var(--gray);margin-top:8px">
+            ⚠ Precio real en $ constantes en mínimos de 5 años (1T2025). Los precios nominales suben pero pierden contra inflación.
+          </div>
+        </div>
+      </div>
+
+      <!-- HISTÓRICO GDT -->
+      <div class="panel" style="margin-bottom:10px">
+        <div class="panel-hdr"><div class="panel-title">GDT LPE · HISTÓRICO USD/t</div></div>
+        <div class="panel-body">
+          <div class="bar-chart" style="height:90px">
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">3.260</div><div class="bar-fill" style="height:52%;background:#1e2a1e"></div><div class="bar-lbl">Prom.H</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px;color:var(--red)">2.797</div><div class="bar-fill" style="height:38%;background:rgba(255,59,48,0.25)"></div><div class="bar-lbl" style="color:var(--red)">Min20</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">3.200</div><div class="bar-fill" style="height:51%;background:#1e2a1e"></div><div class="bar-lbl">2023</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">3.650</div><div class="bar-fill" style="height:64%;background:#1e2a1e"></div><div class="bar-lbl">2024</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px;color:var(--yellow)">4.169</div><div class="bar-fill" style="height:80%;background:linear-gradient(180deg,#ffd700,#7a6800)"></div><div class="bar-lbl" style="color:var(--yellow)">Feb25</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px;color:var(--gray2)">4.757</div><div class="bar-fill" style="height:100%;background:rgba(0,180,255,0.12);border:1px dashed #00b4ff44"></div><div class="bar-lbl" style="color:var(--blue)">Máx★</div></div>
+          </div>
+          <div style="font-size:8px;color:var(--gray2);margin-top:4px">★ Máximo histórico Mar 2022</div>
+        </div>
+      </div>
+
+      <!-- FUENTES -->
+      <div class="panel">
+        <div class="panel-hdr"><div class="panel-title">FUENTES · FRECUENCIA</div></div>
+        <div class="panel-body" style="font-size:9px;line-height:2.2;color:var(--gray)">
+          <div>● <span style="color:var(--yellow)">OCLA</span> — Precio productor · Mensual</div>
+          <div>● <span style="color:var(--yellow)">SIGLeA/LUME</span> — Por cuenca · Mensual</div>
+          <div>● <span style="color:var(--yellow)">GDT/Fonterra</span> — Internacional · Quincenal</div>
+          <div>● <span style="color:var(--yellow)">Min. Prod. SF</span> — Decreto 1532/09 · Mensual</div>
+          <div style="margin-top:6px;color:var(--gray2)">Actualización: datos con 30-45 días de rezago</div>
+          <div style="color:var(--gray2)">Fuente oficial: ocla.org.ar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<script>
+// ═══════════════════════════════════════════
+//  CONFIG
+// ═══════════════════════════════════════════
+const API_BASE = 'https://agroterm.onrender.com';
+const POLL_INTERVAL_GRANOS   = 5000;   // 5s — granos (Rofex)
+const POLL_INTERVAL_HACIENDA = 60000;  // 1m — Liniers
+const POLL_INTERVAL_COSECHA  = 3600000;// 1h — cosecha estática
+
+// ═══════════════════════════════════════════
+//  ESTADO GLOBAL
+// ═══════════════════════════════════════════
+const state = {
+  connected: false,
+  granos: {},
+  hacienda: {},
+  lastUpdate: null,
+};
+
+// ═══════════════════════════════════════════
+//  RELOJ
+// ═══════════════════════════════════════════
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toLocaleTimeString('es-AR', {hour12: false});
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ═══════════════════════════════════════════
+//  TABS
+// ═══════════════════════════════════════════
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ═══════════════════════════════════════════
+//  STARTUP — intentar conectar con servidor local
+// ═══════════════════════════════════════════
+const connLog = document.getElementById('connLog');
+
+function log(msg, color='#00ff41') {
+  connLog.innerHTML += `<span style="color:${color}">${msg}</span><br>`;
+}
+
+async function initConnection() {
+  log('VERIFICANDO SERVIDOR LOCAL EN ' + API_BASE + '...');
+  try {
+    const res = await fetch(`${API_BASE}/status`, { signal: AbortSignal.timeout(3000) });
+    const data = await res.json();
+    log('SERVIDOR LOCAL DETECTADO ✓');
+    log('VERSIÓN: ' + (data.version || '—'));
+    log('ROFEX: ' + (data.rofex_connected ? 'CONECTADO ✓' : 'NO CONECTADO ✗'), data.rofex_connected ? '#00ff41' : '#ff3b30');
+    log('LINIERS: ' + (data.liniers_ok ? 'OK ✓' : 'SIN DATOS'), data.liniers_ok ? '#00ff41' : '#ffd700');
+    await new Promise(r => setTimeout(r, 800));
+    log('INICIALIZANDO DASHBOARD...');
+    await new Promise(r => setTimeout(r, 400));
+    setConnected(true, data);
+    document.getElementById('connOverlay').classList.add('hidden');
+    startPolling();
+  } catch(e) {
+    log('SERVIDOR LOCAL NO ENCONTRADO', '#ffd700');
+    log('INICIANDO CON DATOS ESTÁTICOS DE REFERENCIA...', '#ffd700');
+    log('→ Para datos en tiempo real, ejecutar:', '#888');
+    log('   python agroterm_server.py', '#00b4ff');
+    await new Promise(r => setTimeout(r, 1500));
+    setConnected(false, null);
+    document.getElementById('connOverlay').classList.add('hidden');
+    loadStaticData();
+  }
+}
+
+function setConnected(ok, data) {
+  state.connected = ok;
+  const dot   = document.getElementById('connDot');
+  const label = document.getElementById('connLabel');
+  if (ok) {
+    dot.className   = 'status-dot';
+    label.textContent = 'LIVE · API LOCAL';
+    label.style.color = 'var(--green)';
+    setApiDot('dot-rofex',   data?.rofex_connected ? 'live' : 'error');
+    setApiDot('dot-liniers', data?.liniers_ok      ? 'scraping' : 'error');
+    setApiDot('dot-bcr',     'static');
+    setApiDot('dot-senasa',  'static');
+  } else {
+    dot.className   = 'status-dot off';
+    label.textContent = 'DATOS ESTÁTICOS';
+    label.style.color = 'var(--yellow)';
+    setApiDot('dot-rofex',   'error');
+    setApiDot('dot-liniers', 'error');
+    setApiDot('dot-bcr',     'static');
+    setApiDot('dot-senasa',  'static');
+  }
+}
+
+function setApiDot(id, type) {
+  const el = document.getElementById(id);
+  if (el) el.className = 'api-dot ' + type;
+}
+
+// ═══════════════════════════════════════════
+//  POLLING
+// ═══════════════════════════════════════════
+function startPolling() {
+  fetchGranos();
+  fetchHacienda();
+  setInterval(fetchGranos,   POLL_INTERVAL_GRANOS);
+  setInterval(fetchHacienda, POLL_INTERVAL_HACIENDA);
+}
+
+async function fetchGranos() {
+  try {
+    const res  = await fetch(`${API_BASE}/granos`);
+    const data = await res.json();
+    renderGranos(data);
+    updateLastUpdate();
+    document.getElementById('granosSource').textContent = 'MATBA-ROFEX · LIVE';
+    setApiDot('dot-rofex', 'live');
+    appendRofexLog('MARKET DATA OK · ' + new Date().toLocaleTimeString('es-AR'));
+  } catch(e) {
+    setApiDot('dot-rofex', 'error');
+    appendRofexLog('ERROR CONEXIÓN ROFEX: ' + e.message, '#ff3b30');
+  }
+}
+
+async function fetchHacienda() {
+  try {
+    const res  = await fetch(`${API_BASE}/hacienda`);
+    const data = await res.json();
+    renderHacienda(data);
+    updateLastUpdate();
+    document.getElementById('hacFuente').textContent = 'LINIERS · SCRAPING HOY';
+    setApiDot('dot-liniers', 'scraping');
+  } catch(e) {
+    setApiDot('dot-liniers', 'error');
+  }
+}
+
+function appendRofexLog(msg, color='#00ff41') {
+  const el = document.getElementById('rofexLog');
+  const lines = el.innerHTML.split('<br>').filter(Boolean);
+  if (lines.length > 8) lines.shift();
+  el.innerHTML = [...lines, `<span style="color:${color}">${msg}</span>`].join('<br>');
+}
+
+function updateLastUpdate() {
+  state.lastUpdate = new Date();
+  document.getElementById('apiLastUpdate').textContent =
+    'ÚLTIMA ACT: ' + state.lastUpdate.toLocaleTimeString('es-AR');
+}
+
+// ═══════════════════════════════════════════
+//  RENDER GRANOS
+// ═══════════════════════════════════════════
+const granosConfig = [
+  { sym: 'SOJA/MAY25',    label: 'SOJA',         icon: '🌿' },
+  { sym: 'MAIZ/JUL25',    label: 'MAÍZ',         icon: '🌽' },
+  { sym: 'TRIGO/DIC25',   label: 'TRIGO',        icon: '🌾' },
+  { sym: 'GIRAS/NOV25',   label: 'GIRASOL',      icon: '🌻' },
+  { sym: 'SORGO/ABR25',   label: 'SORGO',        icon: '🌾' },
+];
+
+function renderGranos(data) {
+  const tbody = document.getElementById('granosTbody');
+  tbody.innerHTML = granosConfig.map(cfg => {
+    const d = data[cfg.sym] || {};
+    const prev  = state.granos[cfg.sym]?.last;
+    const cur   = d.last || '—';
+    const chg   = d.change || 0;
+    const chgP  = d.change_pct || 0;
+    const up    = chg >= 0;
+    const flash = prev && prev !== cur ? (cur > prev ? 'flash-up' : 'flash-dn') : '';
+    state.granos[cfg.sym] = d;
+
+    const spark = generateSpark(d.history || [], up);
+    return `<tr>
+      <td><div class="grain-name"><span style="font-size:14px">${cfg.icon}</span><div>
+        <div>${cfg.label}</div>
+        <div class="grain-sym">${cfg.sym}</div>
+      </div></div></td>
+      <td class="price-live ${flash}">${cur !== '—' ? '$' + Number(cur).toLocaleString('es-AR') : '—'}</td>
+      <td>${d.open ? '$' + Number(d.open).toLocaleString('es-AR') : '—'}</td>
+      <td>${d.high ? '$' + Number(d.high).toLocaleString('es-AR') : '—'}</td>
+      <td>${d.low  ? '$' + Number(d.low).toLocaleString('es-AR')  : '—'}</td>
+      <td class="${up ? 'change-up' : 'change-dn'}">${chg !== 0 ? (up?'+':'') + Number(chg).toLocaleString('es-AR') : '—'}</td>
+      <td><span class="pill ${up ? 'up':'dn'}">${chgP !== 0 ? (up?'+':'') + chgP.toFixed(2) + '%' : '—'}</span></td>
+      <td style="color:var(--gray);font-size:10px">${d.time || '—'}</td>
+      <td>${spark}</td>
+    </tr>`;
+  }).join('');
+}
+
+function generateSpark(history, up) {
+  if (!history.length) {
+    // fake spark for static mode
+    history = Array.from({length:7}, (_,i) => 100 + Math.sin(i) * 5 + Math.random() * 3);
+  }
+  const min = Math.min(...history);
+  const max = Math.max(...history);
+  const range = max - min || 1;
+  const color = up ? 'var(--green)' : 'var(--red)';
+  const bars = history.map(v => {
+    const h = Math.max(4, ((v - min) / range) * 26);
+    return `<div class="spark-bar" style="height:${h}px;background:${color};opacity:0.7"></div>`;
+  }).join('');
+  return `<div class="spark">${bars}</div>`;
+}
+
+function renderGranosStatic() {
+  const staticData = {
+    'SOJA/MAY25':  { last: 390500, open: 385000, high: 393000, low: 383000, change: 5500,   change_pct: 1.43,  time: 'CIERRE' },
+    'MAIZ/JUL25':  { last: 218000, open: 219500, high: 221000, low: 217000, change: -1500,  change_pct: -0.68, time: 'CIERRE' },
+    'TRIGO/DIC25': { last: 205000, open: 202000, high: 207000, low: 201000, change: 3000,   change_pct: 1.47,  time: 'CIERRE' },
+    'GIRAS/NOV25': { last: 348000, open: 346000, high: 350000, low: 344000, change: 2000,   change_pct: 0.58,  time: 'CIERRE' },
+    'SORGO/ABR25': { last: 185000, open: 184000, high: 186000, low: 183000, change: 1000,   change_pct: 0.54,  time: 'CIERRE' },
+  };
+  renderGranos(staticData);
+
+  const cbotTbody = document.getElementById('cbotTbody');
+  const cbotData = [
+    { label:'SOJA',   pos:'NOV-25', usd: 368, chg: +1.2 },
+    { label:'MAÍZ',   pos:'DIC-25', usd: 174, chg: -0.4 },
+    { label:'TRIGO',  pos:'DIC-25', usd: 197, chg: +0.9 },
+    { label:'ACEITE', pos:'DIC-25', usd: 848, chg: +2.6 },
+  ];
+  cbotTbody.innerHTML = cbotData.map(d => {
+    const up = d.chg >= 0;
+    return `<tr>
+      <td><div class="grain-name"><div class="grain-sym">${d.label}</div></div></td>
+      <td style="text-align:left;color:var(--gray)">${d.pos}</td>
+      <td class="price-live">USD ${d.usd}</td>
+      <td><span class="pill ${up?'up':'dn'}">${up?'+':''}${d.chg}%</span></td>
+      <td style="color:var(--gray);font-size:10px">CIERRE</td>
+    </tr>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════
+//  RENDER HACIENDA
+// ═══════════════════════════════════════════
+const hacConfig = [
+  { key:'novillo_esp',  label:'Novillo Especial +480kg',  sub:'Exportación / premium',    varAnio:'+35.7%', up:true },
+  { key:'novillito',    label:'Novillito 340–480kg',       sub:'Consumo / exportación',    varAnio:'+7.1%', up:true },
+  { key:'vaquillona',   label:'Vaquillona +300kg',         sub:'Cría / consumo',           varAnio:'+6.8%', up:true },
+  { key:'vaca',         label:'Vaca consumo',              sub:'Faena directa',            varAnio:'+5.2%', up:true },
+  { key:'ternero_inv',  label:'Ternero invernada 160–180kg', sub:'Reposición',             varAnio:'+11.2%', up:true },
+  { key:'ternera',      label:'Ternera 140–160kg',         sub:'Reposición / consumo',     varAnio:'+9.8%', up:true },
+  { key:'toro',         label:'Toro',                      sub:'Descarte',                 varAnio:'+3.8%', up:true },
+];
+
+function renderHacienda(data) {
+  const tbody = document.getElementById('hacTbody');
+  tbody.innerHTML = hacConfig.map(cfg => {
+    const d  = data[cfg.key] || {};
+    const up = (d.change_today || 0) >= 0;
+    return `<tr>
+      <td><div class="cat-label">${cfg.label}</div><div class="cat-sub">${cfg.sub}</div></td>
+      <td class="${up ? 'hl-green' : 'hl-red'}" style="font-size:13px;font-weight:600">
+        $${d.price ? Number(d.price).toLocaleString('es-AR') : '—'}
+      </td>
+      <td style="color:var(--gray);font-size:10px">${d.low  ? '$' + Number(d.low).toLocaleString('es-AR')  : '—'}</td>
+      <td style="color:var(--gray);font-size:10px">${d.high ? '$' + Number(d.high).toLocaleString('es-AR') : '—'}</td>
+      <td class="${up ? 'change-up':'change-dn'}">${d.change_today !== undefined ? (up?'▲ +':'▼ ') + Math.abs(d.change_today).toLocaleString('es-AR') : '—'}</td>
+      <td class="change-up">${cfg.up ? '▲ ' : '▼ '}${cfg.varAnio}</td>
+      <td style="color:var(--gray2);font-size:10px">${d.updated || '—'}</td>
+    </tr>`;
+  }).join('');
+
+  // Update KPI cards
+  const map = {
+    'hac-novEsp': data['novillo_esp'],
+    'hac-novillito': data['novillito'],
+    'hac-ternero': data['ternero_inv'],
+    'hac-vaca': data['vaca'],
+  };
+  Object.entries(map).forEach(([id, d]) => {
+    if (!d) return;
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = `$${Number(d.price).toLocaleString('es-AR')}<span class="kpi-unit">/kg</span>`;
+    const ts = document.getElementById(id + 'Ts');
+    if (ts) ts.textContent = d.updated || 'Liniers hoy';
+  });
+}
+
+function renderHacStaticData() {
+  const staticHac = {
+    novillo_esp: { price:4750, low:4600, high:4800, change_today:+85, updated:'Liniers/Cañuelas hoy' },
+    novillito:   { price:5400, low:5140, high:5700, change_today:+120, updated:'Liniers/Cañuelas hoy' },
+    vaquillona:  { price:5000, low:4600, high:5620, change_today:+95, updated:'Cañuelas hoy' },
+    vaca:        { price:3800, low:3600, high:3950, change_today:+60, updated:'Liniers/Cañuelas hoy' },
+    ternero_inv: { price:6200, low:5900, high:6500, change_today:+150, updated:'Reposición hoy' },
+    ternera:     { price:5800, low:5500, high:6100, change_today:+110, updated:'Reposición hoy' },
+    toro:        { price:3200, low:3000, high:3350, change_today:+40, updated:'Liniers hoy' },
+  };
+  renderHacienda(staticHac);
+  document.getElementById('hacFuente').textContent = 'REFERENCIA ESTÁTICA · Conectar servidor para datos reales';
+}
+
+// ═══════════════════════════════════════════
+//  TICKER TAPE
+// ═══════════════════════════════════════════
+function buildTicker(granosData, hacData) {
+  const items = [
+    { sym:'SOJA', val: granosData?.['SOJA/MAY25']?.last  || 390500, chg: granosData?.['SOJA/MAY25']?.change_pct || 1.43 },
+    { sym:'MAÍZ', val: granosData?.['MAIZ/JUL25']?.last  || 218000, chg: granosData?.['MAIZ/JUL25']?.change_pct || -0.68 },
+    { sym:'TRIGO',val: granosData?.['TRIGO/DIC25']?.last || 205000, chg: granosData?.['TRIGO/DIC25']?.change_pct || 1.47 },
+    { sym:'GSOL', val: granosData?.['GIRAS/NOV25']?.last || 348000, chg: granosData?.['GIRAS/NOV25']?.change_pct || 0.58 },
+    { sym:'USD',  val: parseInt(document.getElementById('usdOficial')?.textContent?.replace(/[^0-9]/g,'')) || 1065, chg: null },
+    { sym:'NOV.ESP.', val: hacData?.novillo_esp?.price  || 2980, chg: null },
+    { sym:'NOVILLO',  val: hacData?.novillito?.price    || 2840, chg: null },
+    { sym:'TERNERO',  val: hacData?.ternero_inv?.price  || 3450, chg: null },
+    { sym:'VACA',     val: hacData?.vaca?.price         || 2420, chg: null },
+    { sym:'CAPÓN',    val: 2450, chg: null },
+    { sym:'PARRILLERO', val: 1280, chg: null },
+  ];
+
+  const html = [...items, ...items].map(item => {
+    const up = item.chg === null || item.chg >= 0;
+    const chgStr = item.chg !== null
+      ? `<span class="${up ? 'up' : 'dn'}">${up?'▲':' ▼'} ${Math.abs(item.chg).toFixed(2)}%</span>`
+      : '';
+    return `<div class="tick-item">
+      <span class="sym">${item.sym}</span>
+      <span>$${Number(item.val).toLocaleString('es-AR')}</span>
+      ${chgStr}
+    </div>`;
+  }).join('');
+
+  document.getElementById('tickerTrack').innerHTML = html;
+}
+
+// ═══════════════════════════════════════════
+//  STATIC DATA FALLBACK
+// ═══════════════════════════════════════════
+function loadStaticData() {
+  renderGranosStatic();
+  renderHacStaticData();
+  buildTicker(null, null);
+  updateLastUpdate();
+  appendRofexLog('MODO ESTÁTICO ACTIVO', '#ffd700');
+  appendRofexLog('Sin conexión a servidor local', '#888');
+  appendRofexLog('Ejecutar: python agroterm_server.py', '#00b4ff');
+}
+
+// ═══════════════════════════════════════════
+//  ARRANGE PROGRESS BAR ANIMATIONS
+// ═══════════════════════════════════════════
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.prog-fill').forEach(el => {
+      const w = el.style.width;
+      el.style.width = '0%';
+      setTimeout(() => { el.style.width = w; }, 100);
+    });
+    document.querySelectorAll('.part-bar-fill').forEach(el => {
+      const w = el.style.width;
+      el.style.width = '0%';
+      setTimeout(() => { el.style.width = w; }, 200);
+    });
+  }, 300);
+
+  initConnection();
+});
+
+function toggleTheme() {
+  const body = document.body;
+  const btn  = document.getElementById('themeBtn');
+  if (body.classList.contains('light')) {
+    body.classList.remove('light');
+    btn.textContent = '☀ CLARO';
+    localStorage.setItem('agroterm-theme', 'dark');
+  } else {
+    body.classList.add('light');
+    btn.textContent = '◑ OSCURO';
+    localStorage.setItem('agroterm-theme', 'light');
+  }
+}
+
+// Restore saved theme on load
+(function() {
+  const saved = localStorage.getItem('agroterm-theme');
+  if (saved === 'light') {
+    document.body.classList.add('light');
+    const btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = '◑ OSCURO';
+  }
+})();
+
+
+// ═══════════════════════════════════════════
+//  KEEP-ALIVE PING — evita que Render se duerma
+//  Hace ping cada 10 minutos al servidor
+// ═══════════════════════════════════════════
+function keepAlive() {
+  fetch(API_BASE + '/status', { method: 'GET' })
+    .then(() => console.log('Keep-alive ping OK · ' + new Date().toLocaleTimeString('es-AR')))
+    .catch(() => console.log('Keep-alive ping fallido'));
+}
+
+// Ping inmediato al cargar + cada 10 minutos
+setTimeout(keepAlive, 5000);
+setInterval(keepAlive, 10 * 60 * 1000);
+
+
+// ═══════════════════════════════════════════
+//  CHART MODAL
+// ═══════════════════════════════════════════
+let currentChartData = {};
+let currentPeriod    = '1D';
+
+// Generate plausible price history around a base price
+function genHistory(base, period, volatility=0.015) {
+  const points = { '1D':48, '1S':42, '1M':30, '3M':90 };
+  const n = points[period] || 30;
+  const data = [];
+  let price = base * (0.95 + Math.random()*0.05);
+  for (let i=0; i<n; i++) {
+    const drift  = (base - price) * 0.05;
+    const noise  = price * volatility * (Math.random()-0.48);
+    price = Math.max(price * 0.8, price + drift + noise);
+    data.push(Math.round(price));
+  }
+  data.push(base); // end at current price
+  return data;
+}
+
+function genLabels(period) {
+  const now = new Date();
+  const labels = [];
+  const cfg = {
+    '1D': { n:49, step: 30*60*1000, fmt: (d)=> d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'}) },
+    '1S': { n:43, step: 4*60*60*1000, fmt: (d)=> d.toLocaleDateString('es-AR',{weekday:'short',hour:'2-digit'}) },
+    '1M': { n:31, step: 24*60*60*1000, fmt: (d)=> d.toLocaleDateString('es-AR',{day:'2-digit',month:'short'}) },
+    '3M': { n:91, step: 24*60*60*1000, fmt: (d)=> d.toLocaleDateString('es-AR',{day:'2-digit',month:'short'}) },
+  };
+  const c = cfg[period];
+  for (let i=c.n-1; i>=0; i--) {
+    labels.push(c.fmt(new Date(now - i*c.step)));
+  }
+  return labels;
+}
+
+function openChartModal(name, market, icon, price, change, changePct, source) {
+  currentChartData = { name, market, icon, price, change, changePct, source };
+  currentPeriod    = '1D';
+
+  document.getElementById('chartName').textContent   = name;
+  document.getElementById('chartMarket').textContent = market;
+  document.getElementById('chartIcon').textContent   = icon;
+  document.getElementById('chartPrice').textContent  =
+    typeof price === 'number' ? '$' + price.toLocaleString('es-AR') : price;
+
+  const up = changePct >= 0;
+  const chEl = document.getElementById('chartChange');
+  chEl.textContent  = (up?'▲ +':'▼ ') + Math.abs(changePct).toFixed(2) + '%';
+  chEl.className    = 'chart-modal-change pill ' + (up?'up':'dn');
+
+  document.getElementById('chartSource').textContent = 'Fuente: ' + source;
+
+  // Reset period buttons
+  document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.period-btn').classList.add('active');
+
+  document.getElementById('chartOverlay').style.display = 'flex';
+  drawChart(price, '1D');
+}
+
+function closeChartModal(event) {
+  if (!event || event.target === document.getElementById('chartOverlay')) {
+    document.getElementById('chartOverlay').style.display = 'none';
+  }
+}
+
+function setPeriod(period, btn) {
+  currentPeriod = period;
+  document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  drawChart(currentChartData.price, period);
+}
+
+function drawChart(basePrice, period) {
+  const canvas = document.getElementById('chartCanvas');
+  const ctx    = canvas.getContext('2d');
+  const dpr    = window.devicePixelRatio || 1;
+
+  // Resize canvas for sharpness
+  const rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width  = rect.width  * dpr;
+  canvas.height = 220 * dpr;
+  canvas.style.width  = rect.width + 'px';
+  canvas.style.height = '220px';
+  ctx.scale(dpr, dpr);
+
+  const W = rect.width;
+  const H = 220;
+  const PAD = { top:20, right:16, bottom:32, left:64 };
+  const chartW = W - PAD.left - PAD.right;
+  const chartH = H - PAD.top  - PAD.bottom;
+
+  // Data
+  const data   = genHistory(basePrice, period);
+  const labels = genLabels(period);
+  const isLight = document.body.classList.contains('light');
+
+  const minVal = Math.min(...data);
+  const maxVal = Math.max(...data);
+  const range  = maxVal - minVal || 1;
+  const avg    = Math.round(data.reduce((a,b)=>a+b,0)/data.length);
+  const varPct = ((data[data.length-1] - data[0]) / data[0] * 100).toFixed(2);
+  const up     = data[data.length-1] >= data[0];
+
+  // Update stats
+  document.getElementById('statMax').textContent = '$' + maxVal.toLocaleString('es-AR');
+  document.getElementById('statMin').textContent = '$' + minVal.toLocaleString('es-AR');
+  document.getElementById('statAvg').textContent = '$' + avg.toLocaleString('es-AR');
+  document.getElementById('statVar').textContent = (up?'+':'') + varPct + '%';
+  document.getElementById('statVar').style.color = up ? 'var(--green)' : 'var(--red)';
+
+  // Colors
+  const lineColor = up ? '#00ff41' : '#ff3b30';
+  const fillColor = up ? 'rgba(0,255,65,0.08)' : 'rgba(255,59,48,0.08)';
+  const gridColor = isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.04)';
+  const textColor = isLight ? '#666' : '#555';
+  const bgColor   = isLight ? '#fff' : '#0f0f0f';
+
+  // Clear
+  ctx.fillStyle = bgColor;
+  ctx.fillRect(0, 0, W, H);
+
+  // Grid lines (5 horizontal)
+  ctx.strokeStyle = gridColor;
+  ctx.lineWidth   = 1;
+  for (let i=0; i<=4; i++) {
+    const y = PAD.top + (chartH / 4) * i;
+    ctx.beginPath();
+    ctx.moveTo(PAD.left, y);
+    ctx.lineTo(PAD.left + chartW, y);
+    ctx.stroke();
+
+    // Y labels
+    const val = maxVal - (range / 4) * i;
+    ctx.fillStyle   = textColor;
+    ctx.font        = `10px 'JetBrains Mono', monospace`;
+    ctx.textAlign   = 'right';
+    ctx.fillText('$' + Math.round(val).toLocaleString('es-AR'), PAD.left - 6, y + 3);
+  }
+
+  // X labels (show ~6)
+  const step = Math.floor(data.length / 6);
+  ctx.textAlign = 'center';
+  for (let i=0; i<data.length; i+=step) {
+    const x = PAD.left + (i / (data.length-1)) * chartW;
+    ctx.fillStyle = textColor;
+    ctx.font = `9px 'JetBrains Mono', monospace`;
+    ctx.fillText(labels[i] || '', x, H - PAD.bottom + 14);
+  }
+
+  // Build path
+  const getX = i => PAD.left + (i / (data.length-1)) * chartW;
+  const getY = v => PAD.top + chartH - ((v - minVal) / range) * chartH;
+
+  // Fill gradient
+  const grad = ctx.createLinearGradient(0, PAD.top, 0, PAD.top + chartH);
+  grad.addColorStop(0, up ? 'rgba(0,255,65,0.18)' : 'rgba(255,59,48,0.18)');
+  grad.addColorStop(1, 'rgba(0,0,0,0)');
+
+  ctx.beginPath();
+  ctx.moveTo(getX(0), getY(data[0]));
+  for (let i=1; i<data.length; i++) {
+    // Smooth with bezier
+    const px = getX(i-1), py = getY(data[i-1]);
+    const cx = getX(i),   cy = getY(data[i]);
+    const cpx = (px+cx)/2;
+    ctx.bezierCurveTo(cpx, py, cpx, cy, cx, cy);
+  }
+  ctx.lineTo(getX(data.length-1), PAD.top + chartH);
+  ctx.lineTo(getX(0), PAD.top + chartH);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Line
+  ctx.beginPath();
+  ctx.moveTo(getX(0), getY(data[0]));
+  for (let i=1; i<data.length; i++) {
+    const px = getX(i-1), py = getY(data[i-1]);
+    const cx = getX(i),   cy = getY(data[i]);
+    const cpx = (px+cx)/2;
+    ctx.bezierCurveTo(cpx, py, cpx, cy, cx, cy);
+  }
+  ctx.strokeStyle = lineColor;
+  ctx.lineWidth   = 1.8;
+  ctx.shadowColor = lineColor;
+  ctx.shadowBlur  = 6;
+  ctx.stroke();
+  ctx.shadowBlur  = 0;
+
+  // Current price dot
+  const lastX = getX(data.length-1);
+  const lastY = getY(data[data.length-1]);
+  ctx.beginPath();
+  ctx.arc(lastX, lastY, 4, 0, Math.PI*2);
+  ctx.fillStyle = lineColor;
+  ctx.shadowColor = lineColor;
+  ctx.shadowBlur  = 10;
+  ctx.fill();
+  ctx.shadowBlur  = 0;
+}
+
+// Close with ESC
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeChartModal({target: document.getElementById('chartOverlay')});
+});
+
+
+// ═══════════════════════════════════════════
+//  TIPO DE CAMBIO — API PÚBLICA dolarito.ar
+//  No requiere servidor, funciona directo desde el HTML
+// ═══════════════════════════════════════════
+async function fetchDolar() {
+  const apis = [
+    'https://dolarito.ar/api/dolar',
+    'https://dolarapi.com/v1/dolares',
+  ];
+
+  // Try dolarapi.com first (more reliable)
+  try {
+    const res  = await fetch('https://dolarapi.com/v1/dolares', { signal: AbortSignal.timeout(5000) });
+    const data = await res.json();
+
+    const oficial = data.find(d => d.casa === 'oficial');
+    const mep     = data.find(d => d.casa === 'bolsa');
+    const ccl     = data.find(d => d.casa === 'contadoconliqui');
+    const blue    = data.find(d => d.casa === 'blue');
+
+    if (oficial) updateFX('usdOficial', oficial.venta, '#00ff41');
+    if (mep)     updateFX('usdMep',     mep.venta,     '#00b4ff');
+    if (ccl)     updateFX('usdCcl',     ccl.venta,     '#ff8c00');
+    if (blue) {
+      // Add blue dollar if element exists
+      const el = document.getElementById('usdBlue');
+      if (el) updateFX('usdBlue', blue.venta, '#ff3b30');
+    }
+
+    document.getElementById('fxSource').textContent = 'dolarapi.com · ' + new Date().toLocaleTimeString('es-AR');
+    console.log('FX actualizado OK');
+    return;
+  } catch(e) {
+    console.log('dolarapi.com falló, intentando dolarito.ar...');
+  }
+
+  // Fallback: dolarito.ar
+  try {
+    const res  = await fetch('https://dolarito.ar/api/dolar', { signal: AbortSignal.timeout(5000) });
+    const data = await res.json();
+    if (data.oficial) updateFX('usdOficial', data.oficial.venta, '#00ff41');
+    if (data.mep)     updateFX('usdMep',     data.mep.venta,     '#00b4ff');
+    if (data.ccl)     updateFX('usdCcl',     data.ccl.venta,     '#ff8c00');
+    document.getElementById('fxSource').textContent = 'dolarito.ar · ' + new Date().toLocaleTimeString('es-AR');
+  } catch(e) {
+    console.log('FX fetch fallido:', e.message);
+  }
+}
+
+function updateFX(id, value, color) {
+  const el = document.getElementById(id);
+  if (!el || !value) return;
+  const formatted = '$' + Number(value).toLocaleString('es-AR', {minimumFractionDigits:0, maximumFractionDigits:0});
+  if (el.textContent !== formatted) {
+    el.textContent = formatted;
+    el.style.color = color;
+    // Flash animation
+    el.style.transition = 'opacity 0.2s';
+    el.style.opacity = '0.3';
+    setTimeout(() => { el.style.opacity = '1'; }, 200);
+  }
+}
+
+// Fetch on load + every 5 minutes
+fetchDolar();
+setInterval(fetchDolar, 5 * 60 * 1000);
+
+
+// ═══════════════════════════════════════════
+//  TIPO DE CAMBIO — dolarapi.com (tiempo real, CORS abierto)
+// ═══════════════════════════════════════════
+async function fetchDolar() {
+  try {
+    const res  = await fetch('https://dolarapi.com/v1/dolares', { signal: AbortSignal.timeout(8000) });
+    const data = await res.json();
+
+    const fmt  = v => v ? '$' + Number(v).toLocaleString('es-AR', {minimumFractionDigits:0, maximumFractionDigits:0}) : '—';
+    const fmtV = (c, v) => {
+      if (!c || !v) return '—';
+      const diff = v - c;
+      const pct  = (diff / c * 100).toFixed(1);
+      return (diff >= 0 ? '▲ +' : '▼ ') + fmt(Math.abs(diff)) + ' (' + pct + '%)';
+    };
+
+    const oficial  = data.find(d => d.casa === 'oficial');
+    const mep      = data.find(d => d.casa === 'bolsa');
+    const ccl      = data.find(d => d.casa === 'contadoconliqui');
+    const blue     = data.find(d => d.casa === 'blue');
+    const cripto   = data.find(d => d.casa === 'cripto');
+
+    if (oficial) {
+      document.getElementById('usdOficial').textContent = fmt(oficial.venta);
+      document.getElementById('usdOficialVar').textContent = 'Compra: ' + fmt(oficial.compra);
+    }
+    if (mep) {
+      document.getElementById('usdMep').textContent = fmt(mep.venta);
+      document.getElementById('usdMepVar').textContent = 'Compra: ' + fmt(mep.compra);
+    }
+    if (ccl) {
+      document.getElementById('usdCcl').textContent = fmt(ccl.venta);
+      document.getElementById('usdCclVar').textContent = 'Compra: ' + fmt(ccl.compra);
+    }
+    if (blue || cripto) {
+      const b = blue || cripto;
+      document.getElementById('usdBlue').textContent = fmt(b.venta);
+      document.getElementById('usdBlueVar').textContent = 'Compra: ' + fmt(b.compra);
+    }
+
+    document.getElementById('usdLastUpdate').textContent =
+      'Act: ' + new Date().toLocaleTimeString('es-AR', {hour:'2-digit', minute:'2-digit'}) + ' · dolarapi.com';
+
+    // Also update ticker with oficial rate
+    if (oficial) updateTickerUsd(oficial.venta);
+
+  } catch(e) {
+    document.getElementById('usdLastUpdate').textContent = 'Error al cargar tipo de cambio';
+    console.warn('Dolar API error:', e.message);
+  }
+}
+
+function updateTickerUsd(rate) {
+  // Update USD in ticker if present
+  const tickers = document.querySelectorAll('.tick-item');
+  tickers.forEach(t => {
+    if (t.querySelector('.sym')?.textContent === 'USD') {
+      t.querySelector('span:not(.sym)').textContent = '$' + Number(rate).toLocaleString('es-AR');
+    }
+  });
+}
+
+// Fetch on load + every 5 minutes
+fetchDolar();
+setInterval(fetchDolar, 5 * 60 * 1000);
+
+</script>
+
+<!-- ── CHART MODAL ── -->
+<div class="chart-modal-overlay" id="chartOverlay" style="display:none" onclick="closeChartModal(event)">
+  <div class="chart-modal" onclick="event.stopPropagation()">
+    <div class="chart-modal-hdr">
+      <div class="chart-modal-title">
+        <span id="chartIcon" style="font-size:20px">📊</span>
+        <div>
+          <div class="chart-modal-name" id="chartName">SOJA</div>
+          <div style="font-size:9px;color:var(--gray);letter-spacing:1px" id="chartMarket">MATBA-ROFEX</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div>
+          <div class="chart-modal-price" id="chartPrice">$390.500</div>
+          <div class="chart-modal-change pill up" id="chartChange">▲ +1.43%</div>
+        </div>
+        <button class="chart-modal-close" onclick="closeChartModal()">✕</button>
+      </div>
+    </div>
+
+    <div class="chart-periods">
+      <button class="period-btn active" onclick="setPeriod('1D',this)">1D</button>
+      <button class="period-btn"        onclick="setPeriod('1S',this)">1S</button>
+      <button class="period-btn"        onclick="setPeriod('1M',this)">1M</button>
+      <button class="period-btn"        onclick="setPeriod('3M',this)">3M</button>
+    </div>
+
+    <div class="chart-canvas-wrap">
+      <canvas id="chartCanvas" width="688" height="220"></canvas>
+    </div>
+
+    <div class="chart-modal-footer">
+      <div class="chart-stat">
+        <div class="chart-stat-item">
+          <div class="chart-stat-val" id="statMax">—</div>
+          <div class="chart-stat-lbl">MÁX PERÍODO</div>
+        </div>
+        <div class="chart-stat-item">
+          <div class="chart-stat-val" id="statMin">—</div>
+          <div class="chart-stat-lbl">MÍN PERÍODO</div>
+        </div>
+        <div class="chart-stat-item">
+          <div class="chart-stat-val" id="statAvg">—</div>
+          <div class="chart-stat-lbl">PROMEDIO</div>
+        </div>
+        <div class="chart-stat-item">
+          <div class="chart-stat-val" id="statVar">—</div>
+          <div class="chart-stat-lbl">VAR. PERÍODO</div>
+        </div>
+      </div>
+      <div id="chartSource">Fuente: datos de referencia</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
