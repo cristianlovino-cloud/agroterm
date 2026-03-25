@@ -50,8 +50,8 @@ except ImportError:
 # ══════════════════════════════════════════
 
 # Credenciales Matba-Rofex (reMarkets = demo gratuito)
-ROFEX_USER   = "TU_USUARIO"      # ← reemplazar
-ROFEX_PASS   = "TU_PASSWORD"     # ← reemplazar
+ROFEX_USER   = os.environ.get("ROFEX_USER", "")
+ROFEX_PASS   = os.environ.get("ROFEX_PASS", "")
 ROFEX_ENV    = "reMarkets"       # "reMarkets" (demo) o "live"
 
 # Puerto del servidor local
