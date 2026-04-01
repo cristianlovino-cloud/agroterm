@@ -913,7 +913,7 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
 
 <!-- API STATUS BAR (visible en todas las tabs) -->
 <div class="api-bar" id="apiBar">
-  <div class="api-item"><div class="api-dot" id="dot-rofex"></div><span>MATBA-ROFEX</span></div>
+  <div class="api-item"><div class="api-dot" id="dot-rofex"></div><span>AFA DIARIO</span></div>
   <div class="api-sep">|</div>
   <div class="api-item"><div class="api-dot" id="dot-liniers"></div><span>LINIERS</span></div>
   <div class="api-sep">|</div>
@@ -1266,7 +1266,7 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
       <div class="panel">
         <div class="panel-hdr">
           <div class="panel-title">PRECIOS GRANOS — TIEMPO REAL</div>
-          <div class="panel-meta" id="granosSource">MATBA-ROFEX WEBSOCKET</div>
+          <div class="panel-meta" id="granosSource">AFA DIARIO · SCRAPING</div>
         </div>
         <div class="panel-body" style="padding:0">
           <table class="grain-table">
@@ -1321,8 +1321,8 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
           <table class="comp-table">
             <thead><tr><th>CULTIVO</th><th>22/23</th><th>23/24</th><th>24/25</th><th>VAR.</th></tr></thead>
             <tbody>
-              <tr><td>SOJA</td><td>248.000</td><td>310.000</td><td class="hl-yellow" id="sojaProm">390.500</td><td class="change-up">▲ +25.9%</td></tr>
-              <tr><td>MAÍZ</td><td>138.000</td><td>175.000</td><td class="hl-yellow" id="maizProm">218.000</td><td class="change-up">▲ +24.6%</td></tr>
+              <tr><td>SOJA</td><td>248.000</td><td>310.000</td><td class="hl-yellow" id="sojaProm">445.000</td><td class="change-up">▲ +25.9%</td></tr>
+              <tr><td>MAÍZ</td><td>138.000</td><td>175.000</td><td class="hl-yellow" id="maizProm">247.000</td><td class="change-up">▲ +24.6%</td></tr>
               <tr><td>TRIGO</td><td>118.000</td><td>162.000</td><td class="hl-yellow" id="trigoProm">205.000</td><td class="change-up">▲ +26.5%</td></tr>
               <tr><td>GIRASOL</td><td>218.000</td><td>295.000</td><td class="hl-yellow" id="girasolProm">348.000</td><td class="change-up">▲ +17.9%</td></tr>
             </tbody>
@@ -1356,7 +1356,7 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
       </div>
 
       <div class="panel" style="margin-top:10px">
-        <div class="panel-hdr"><div class="panel-title">ESTADO CONEXIÓN ROFEX</div></div>
+        <div class="panel-hdr"><div class="panel-title">ESTADO CONEXIÓN AFA DIARIO</div></div>
         <div class="panel-body" style="font-size:9px;line-height:2.2;color:var(--gray)" id="rofexLog">
           ESPERANDO CONEXIÓN...
         </div>
@@ -1903,7 +1903,7 @@ async function initConnection() {
     const data = await res.json();
     log('SERVIDOR LOCAL DETECTADO ✓');
     log('VERSIÓN: ' + (data.version || '—'));
-    log('ROFEX: ' + (data.rofex_connected ? 'CONECTADO ✓' : 'NO CONECTADO ✗'), data.rofex_connected ? '#00ff41' : '#ff3b30');
+    log('GRANOS AFA: ' + (data.afa_ok || data.rofex_connected ? 'CONECTADO ✓' : 'SIN DATOS'), (data.afa_ok || data.rofex_connected) ? '#00ff41' : '#ffd700');
     log('LINIERS: ' + (data.liniers_ok ? 'OK ✓' : 'SIN DATOS'), data.liniers_ok ? '#00ff41' : '#ffd700');
     await new Promise(r => setTimeout(r, 800));
     log('INICIALIZANDO DASHBOARD...');
@@ -1991,9 +1991,23 @@ async function fetchHacienda() {
 
 function appendRofexLog(msg, color='#00ff41') {
   const el = document.getElementById('rofexLog');
+  if (!el) return;
   const lines = el.innerHTML.split('<br>').filter(Boolean);
-  if (lines.length > 8) lines.shift();
+  if (lines.length >= 5) lines.shift();
   el.innerHTML = [...lines, `<span style="color:${color}">${msg}</span>`].join('<br>');
+}
+
+function toggleRofexLog() {
+  const el  = document.getElementById('rofexLog');
+  const btn = document.getElementById('rofexToggleBtn');
+  if (!el) return;
+  if (el.style.display === 'none') {
+    el.style.display = 'block';
+    btn.textContent = 'OCULTAR';
+  } else {
+    el.style.display = 'none';
+    btn.textContent = 'MOSTRAR';
+  }
 }
 
 function updateLastUpdate() {
@@ -2006,11 +2020,11 @@ function updateLastUpdate() {
 //  RENDER GRANOS
 // ═══════════════════════════════════════════
 const granosConfig = [
-  { sym: 'SOJA/MAY25',    label: 'SOJA',         icon: '🌿' },
-  { sym: 'MAIZ/JUL25',    label: 'MAÍZ',         icon: '🌽' },
-  { sym: 'TRIGO/DIC25',   label: 'TRIGO',        icon: '🌾' },
-  { sym: 'GIRAS/NOV25',   label: 'GIRASOL',      icon: '🌻' },
-  { sym: 'SORGO/ABR25',   label: 'SORGO',        icon: '🌾' },
+  { sym: 'SOJA/DISP',    label: 'SOJA',         icon: '🌿' },
+  { sym: 'MAIZ/DISP',    label: 'MAÍZ',         icon: '🌽' },
+  { sym: 'TRIGO/DISP',   label: 'TRIGO',        icon: '🌾' },
+  { sym: 'GIRAS/DISP',   label: 'GIRASOL',      icon: '🌻' },
+  { sym: 'SORGO/DISP',   label: 'SORGO',        icon: '🌾' },
 ];
 
 function renderGranos(data) {
@@ -2061,11 +2075,11 @@ function generateSpark(history, up) {
 
 function renderGranosStatic() {
   const staticData = {
-    'SOJA/MAY25':  { last: 390500, open: 385000, high: 393000, low: 383000, change: 5500,   change_pct: 1.43,  time: 'CIERRE' },
-    'MAIZ/JUL25':  { last: 218000, open: 219500, high: 221000, low: 217000, change: -1500,  change_pct: -0.68, time: 'CIERRE' },
-    'TRIGO/DIC25': { last: 205000, open: 202000, high: 207000, low: 201000, change: 3000,   change_pct: 1.47,  time: 'CIERRE' },
-    'GIRAS/NOV25': { last: 348000, open: 346000, high: 350000, low: 344000, change: 2000,   change_pct: 0.58,  time: 'CIERRE' },
-    'SORGO/ABR25': { last: 185000, open: 184000, high: 186000, low: 183000, change: 1000,   change_pct: 0.54,  time: 'CIERRE' },
+    'SOJA/DISP':  { last: 445000, open: 480000, high: 488000, low: 478000, change: 5000,   change_pct: 1.04,  time: 'CIERRE' },
+    'MAIZ/DISP':  { last: 247000, open: 248000, high: 252000, low: 247000, change: 2000,   change_pct: 0.81,  time: 'CIERRE' },
+    'TRIGO/DISP': { last: 258000, open: 228000, high: 232000, low: 227000, change: 2000,   change_pct: 0.88,  time: 'CIERRE' },
+    'GIRAS/DISP': { last: 536000, open: 346000, high: 350000, low: 344000, change: 2000,   change_pct: 0.58,  time: 'CIERRE' },
+    'SORGO/DISP': { last: 185000, open: 184000, high: 186000, low: 183000, change: 1000,   change_pct: 0.54,  time: 'CIERRE' },
   };
   renderGranos(staticData);
 
@@ -2154,10 +2168,10 @@ function renderHacStaticData() {
 // ═══════════════════════════════════════════
 function buildTicker(granosData, hacData) {
   const items = [
-    { sym:'SOJA', val: granosData?.['SOJA/MAY25']?.last  || 390500, chg: granosData?.['SOJA/MAY25']?.change_pct || 1.43 },
-    { sym:'MAÍZ', val: granosData?.['MAIZ/JUL25']?.last  || 218000, chg: granosData?.['MAIZ/JUL25']?.change_pct || -0.68 },
-    { sym:'TRIGO',val: granosData?.['TRIGO/DIC25']?.last || 205000, chg: granosData?.['TRIGO/DIC25']?.change_pct || 1.47 },
-    { sym:'GSOL', val: granosData?.['GIRAS/NOV25']?.last || 348000, chg: granosData?.['GIRAS/NOV25']?.change_pct || 0.58 },
+    { sym:'SOJA', val: granosData?.['SOJA/DISP']?.last  || 390500, chg: granosData?.['SOJA/DISP']?.change_pct || 1.43 },
+    { sym:'MAÍZ', val: granosData?.['MAIZ/DISP']?.last  || 218000, chg: granosData?.['MAIZ/DISP']?.change_pct || -0.68 },
+    { sym:'TRIGO',val: granosData?.['TRIGO/DISP']?.last || 205000, chg: granosData?.['TRIGO/DISP']?.change_pct || 1.47 },
+    { sym:'GSOL', val: granosData?.['GIRAS/DISP']?.last || 348000, chg: granosData?.['GIRAS/DISP']?.change_pct || 0.58 },
     { sym:'USD',  val: parseInt(document.getElementById('usdOficial')?.textContent?.replace(/[^0-9]/g,'')) || 1065, chg: null },
     { sym:'NOV.ESP.', val: hacData?.novillo_esp?.price  || 2980, chg: null },
     { sym:'NOVILLO',  val: hacData?.novillito?.price    || 2840, chg: null },
@@ -2191,8 +2205,8 @@ function loadStaticData() {
   buildTicker(null, null);
   updateLastUpdate();
   appendRofexLog('MODO ESTÁTICO ACTIVO', '#ffd700');
-  appendRofexLog('Sin conexión a servidor local', '#888');
-  appendRofexLog('Ejecutar: python agroterm_server.py', '#00b4ff');
+  appendRofexLog('Scraping AFA Diario activo · cada 15 min', '#ffd700');
+  appendRofexLog('Precios: afascl.coop/afadiario', '#00b4ff');
 }
 
 // ═══════════════════════════════════════════
