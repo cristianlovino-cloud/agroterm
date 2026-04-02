@@ -1903,20 +1903,18 @@ async function initConnection() {
     const data = await res.json();
     log('SERVIDOR LOCAL DETECTADO ✓');
     log('VERSIÓN: ' + (data.version || '—'));
-    log('GRANOS AFA: ' + (data.afa_ok || data.rofex_connected ? 'CONECTADO ✓' : 'SIN DATOS'), (data.afa_ok || data.rofex_connected) ? '#00ff41' : '#ffd700');
-    log('LINIERS: ' + (data.liniers_ok ? 'OK ✓' : 'SIN DATOS'), data.liniers_ok ? '#00ff41' : '#ffd700');
-    await new Promise(r => setTimeout(r, 800));
+    log('GRANOS AFA: ' + (data.afa_ok ? 'LIVE ✓' : 'DATOS REF.'), data.afa_ok ? '#00ff41' : '#ffd700');
+    log('LINIERS: ' + (data.liniers_ok ? 'LIVE ✓' : 'DATOS REF.'), data.liniers_ok ? '#00ff41' : '#ffd700');
+    await new Promise(r => setTimeout(r, 600));
     log('INICIALIZANDO DASHBOARD...');
-    await new Promise(r => setTimeout(r, 400));
+    await new Promise(r => setTimeout(r, 300));
     setConnected(true, data);
     document.getElementById('connOverlay').classList.add('hidden');
     startPolling();
   } catch(e) {
     log('SERVIDOR LOCAL NO ENCONTRADO', '#ffd700');
-    log('INICIANDO CON DATOS ESTÁTICOS DE REFERENCIA...', '#ffd700');
-    log('→ Para datos en tiempo real, ejecutar:', '#888');
-    log('   python agroterm_server.py', '#00b4ff');
-    await new Promise(r => setTimeout(r, 1500));
+    log('INICIANDO CON DATOS DE REFERENCIA...', '#ffd700');
+    await new Promise(r => setTimeout(r, 800));
     setConnected(false, null);
     document.getElementById('connOverlay').classList.add('hidden');
     loadStaticData();
