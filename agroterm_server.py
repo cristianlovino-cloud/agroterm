@@ -25,8 +25,25 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(me
 log = logging.getLogger('AgroTerm')
 
 lock = threading.Lock()
-granos_data: Dict[str, Any] = {}
-hacienda_data: Dict[str, Any] = {}
+
+# Datos de referencia cargados desde el inicio
+_now = lambda: datetime.now().strftime("%d/%m · Ref")
+granos_data: Dict[str, Any] = {
+    'SOJA/DISP':  {'last':445000,'open':445000,'high':448000,'low':442000,'change':0,'change_pct':0.0,'time':'Ref','history':[445000]},
+    'MAIZ/DISP':  {'last':247000,'open':247000,'high':249000,'low':245000,'change':0,'change_pct':0.0,'time':'Ref','history':[247000]},
+    'TRIGO/DISP': {'last':258000,'open':258000,'high':260000,'low':256000,'change':0,'change_pct':0.0,'time':'Ref','history':[258000]},
+    'GIRAS/DISP': {'last':536000,'open':536000,'high':540000,'low':532000,'change':0,'change_pct':0.0,'time':'Ref','history':[536000]},
+    'SORGO/DISP': {'last':195000,'open':195000,'high':197000,'low':193000,'change':0,'change_pct':0.0,'time':'Ref','history':[195000]},
+}
+hacienda_data: Dict[str, Any] = {
+    'novillo_esp': {'price':4750,'low':4608,'high':4893,'change_today':0,'updated':'Ref'},
+    'novillito':   {'price':5400,'low':5238,'high':5562,'change_today':0,'updated':'Ref'},
+    'vaquillona':  {'price':5000,'low':4850,'high':5150,'change_today':0,'updated':'Ref'},
+    'vaca':        {'price':3800,'low':3686,'high':3914,'change_today':0,'updated':'Ref'},
+    'ternero_inv': {'price':6200,'low':6014,'high':6386,'change_today':0,'updated':'Ref'},
+    'ternera':     {'price':5800,'low':5626,'high':5974,'change_today':0,'updated':'Ref'},
+    'toro':        {'price':3200,'low':3104,'high':3296,'change_today':0,'updated':'Ref'},
+}
 afa_ok = False
 liniers_ok = False
 
