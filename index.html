@@ -1955,8 +1955,9 @@ function setApiDot(id, type) {
 function startPolling() {
   fetchGranos();
   fetchHacienda();
-  setInterval(fetchGranos,   POLL_INTERVAL_GRANOS);
-  setInterval(fetchHacienda, POLL_INTERVAL_HACIENDA);
+  fetchDolar();
+  setInterval(fetchGranos, POLL_INTERVAL_GRANOS);
+  setInterval(fetchDolar,  5 * 60 * 1000);
 }
 
 async function fetchGranos() {
@@ -1975,16 +1976,10 @@ async function fetchGranos() {
 }
 
 async function fetchHacienda() {
-  try {
-    const res  = await fetch(`${API_BASE}/hacienda`);
-    const data = await res.json();
-    renderHacienda(data);
-    updateLastUpdate();
-    document.getElementById('hacFuente').textContent = 'LINIERS · SCRAPING HOY';
-    setApiDot('dot-liniers', 'scraping');
-  } catch(e) {
-    setApiDot('dot-liniers', 'error');
-  }
+  // Hacienda: datos de referencia Liniers/Cañuelas
+  // Actualización manual semanal
+  renderHacStaticData();
+  setApiDot('dot-liniers', 'static');
 }
 
 function appendRofexLog(msg, color='#00ff41') {
@@ -2252,19 +2247,7 @@ function toggleTheme() {
 })();
 
 
-// ═══════════════════════════════════════════
-//  KEEP-ALIVE PING — evita que Render se duerma
-//  Hace ping cada 10 minutos al servidor
-// ═══════════════════════════════════════════
-function keepAlive() {
-  fetch(API_BASE + '/status', { method: 'GET' })
-    .then(() => console.log('Keep-alive ping OK · ' + new Date().toLocaleTimeString('es-AR')))
-    .catch(() => console.log('Keep-alive ping fallido'));
-}
-
-// Ping inmediato al cargar + cada 10 minutos
-setTimeout(keepAlive, 5000);
-setInterval(keepAlive, 10 * 60 * 1000);
+// Sin servidor Render — no se necesita keep-alive
 
 
 // ═══════════════════════════════════════════
