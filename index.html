@@ -2487,15 +2487,10 @@ async function fetchDolar() {
       if (el) el.textContent = fmt(val);
     };
 
-    setVal('tcOficial', oficial?.venta);
-    setVal('tcMEP',     mep?.venta);
-    setVal('tcCCL',     ccl?.venta);
-    setVal('tcBlue',    blue?.venta);
-
-    // Update ticker
-    updateTicker('tc-oficial', fmt(oficial?.venta), 0);
-    updateTicker('tc-mep',     fmt(mep?.venta), 0);
-    updateTicker('tc-blue',    fmt(blue?.venta), 0);
+    setVal('usdOficial', oficial?.venta);
+    setVal('usdMep',     mep?.venta);
+    setVal('usdCcl',     ccl?.venta);
+    setVal('usdBlue',    blue?.venta);
 
     updateLastUpdate();
   } catch(e) {
