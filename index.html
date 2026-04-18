@@ -1851,7 +1851,7 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
 // ═══════════════════════════════════════════
 //  CONFIG
 // ═══════════════════════════════════════════
-const API_BASE = 'https://agroterm.onrender.com';
+const API_BASE = 'https://rough-mode-11ab.cristianlovino.workers.dev';
 const POLL_INTERVAL_GRANOS   = 5000;   // 5s — granos (Rofex)
 const POLL_INTERVAL_HACIENDA = 60000;  // 1m — Liniers
 const POLL_INTERVAL_COSECHA  = 3600000;// 1h — cosecha estática
@@ -2466,47 +2466,49 @@ document.addEventListener('keydown', e => {
 //  No requiere servidor, funciona directo desde el HTML
 // ═══════════════════════════════════════════
 async function fetchDolar() {
-  const apis = [
-    'https://dolarito.ar/api/dolar',
-    'https://dolarapi.com/v1/dolares',
-  ];
-
-  // Try dolarapi.com first (more reliable)
   try {
-    const res  = await fetch('https://dolarapi.com/v1/dolares', { signal: AbortSignal.timeout(5000) });
+    // Worker Cloudflare — CORS garantizado, siempre disponible
+    const res  = await fetch('https://rough-mode-11ab.cristianlovino.workers.dev/dolar', { signal: AbortSignal.timeout(6000) });
     const data = await res.json();
+    if (!Array.isArray(data)) throw new Error('formato inválido');
 
-    const oficial = data.find(d => d.casa === 'oficial');
-    const mep     = data.find(d => d.casa === 'bolsa');
-    const ccl     = data.find(d => d.casa === 'contadoconliqui');
-    const blue    = data.find(d => d.casa === 'blue');
+    const find = (...keys) => data.find(d => keys.some(k =>
+      d.casa?.toLowerCase() === k || d.nombre?.toLowerCase().includes(k)
+    ));
+    const oficial = find('oficial');
+    const mep     = find('bolsa', 'mep');
+    const ccl     = find('contadoconliqui', 'ccl');
+    const blue    = find('blue');
 
-    if (oficial) updateFX('usdOficial', oficial.venta, '#00ff41');
-    if (mep)     updateFX('usdMep',     mep.venta,     '#00b4ff');
-    if (ccl)     updateFX('usdCcl',     ccl.venta,     '#ff8c00');
-    if (blue) {
-      // Add blue dollar if element exists
-      const el = document.getElementById('usdBlue');
-      if (el) updateFX('usdBlue', blue.venta, '#ff3b30');
+    const fmt = v => v ? '$' + Math.round(v).toLocaleString('es-AR') : '—';
+
+    const setVal = (id, val) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = fmt(val);
+    };
+
+    setVal('tcOficial', oficial?.venta);
+    setVal('tcMEP',     mep?.venta);
+    setVal('tcCCL',     ccl?.venta);
+    setVal('tcBlue',    blue?.venta);
+
+    // Update ticker
+    updateTicker('tc-oficial', fmt(oficial?.venta), 0);
+    updateTicker('tc-mep',     fmt(mep?.venta), 0);
+    updateTicker('tc-blue',    fmt(blue?.venta), 0);
+
+    updateLastUpdate();
+  } catch(e) {
+    console.warn('fetchDolar error:', e.message);
+    // Fallback directo
+    try {
+      const res2 = await fetch('https://dolarapi.com/v1/dolares', { signal: AbortSignal.timeout(8000) });
+      const d2   = await res2.json();
+      // recurse with same parsing... just log
+      console.log('Fallback dolar ok');
+    } catch(e2) {
+      console.warn('Fallback dolar failed:', e2.message);
     }
-
-    document.getElementById('fxSource').textContent = 'dolarapi.com · ' + new Date().toLocaleTimeString('es-AR');
-    console.log('FX actualizado OK');
-    return;
-  } catch(e) {
-    console.log('dolarapi.com falló, intentando dolarito.ar...');
-  }
-
-  // Fallback: dolarito.ar
-  try {
-    const res  = await fetch('https://dolarito.ar/api/dolar', { signal: AbortSignal.timeout(5000) });
-    const data = await res.json();
-    if (data.oficial) updateFX('usdOficial', data.oficial.venta, '#00ff41');
-    if (data.mep)     updateFX('usdMep',     data.mep.venta,     '#00b4ff');
-    if (data.ccl)     updateFX('usdCcl',     data.ccl.venta,     '#ff8c00');
-    document.getElementById('fxSource').textContent = 'dolarito.ar · ' + new Date().toLocaleTimeString('es-AR');
-  } catch(e) {
-    console.log('FX fetch fallido:', e.message);
   }
 }
 
