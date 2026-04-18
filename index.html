@@ -2467,71 +2467,7 @@ document.addEventListener('keydown', e => {
 // ═══════════════════════════════════════════
 async function fetchDolar() {
   try {
-    // Worker Cloudflare — CORS garantizado, siempre disponible
     const res  = await fetch('https://rough-mode-11ab.cristianlovino.workers.dev/dolar', { signal: AbortSignal.timeout(6000) });
-    const data = await res.json();
-    if (!Array.isArray(data)) throw new Error('formato inválido');
-
-    const find = (...keys) => data.find(d => keys.some(k =>
-      d.casa?.toLowerCase() === k || d.nombre?.toLowerCase().includes(k)
-    ));
-    const oficial = find('oficial');
-    const mep     = find('bolsa', 'mep');
-    const ccl     = find('contadoconliqui', 'ccl');
-    const blue    = find('blue');
-
-    const fmt = v => v ? '$' + Math.round(v).toLocaleString('es-AR') : '—';
-
-    const setVal = (id, val) => {
-      const el = document.getElementById(id);
-      if (el) el.textContent = fmt(val);
-    };
-
-    setVal('usdOficial', oficial?.venta);
-    setVal('usdMep',     mep?.venta);
-    setVal('usdCcl',     ccl?.venta);
-    setVal('usdBlue',    blue?.venta);
-
-    updateLastUpdate();
-  } catch(e) {
-    console.warn('fetchDolar error:', e.message);
-    // Fallback directo
-    try {
-      const res2 = await fetch('https://dolarapi.com/v1/dolares', { signal: AbortSignal.timeout(8000) });
-      const d2   = await res2.json();
-      // recurse with same parsing... just log
-      console.log('Fallback dolar ok');
-    } catch(e2) {
-      console.warn('Fallback dolar failed:', e2.message);
-    }
-  }
-}
-
-function updateFX(id, value, color) {
-  const el = document.getElementById(id);
-  if (!el || !value) return;
-  const formatted = '$' + Number(value).toLocaleString('es-AR', {minimumFractionDigits:0, maximumFractionDigits:0});
-  if (el.textContent !== formatted) {
-    el.textContent = formatted;
-    el.style.color = color;
-    // Flash animation
-    el.style.transition = 'opacity 0.2s';
-    el.style.opacity = '0.3';
-    setTimeout(() => { el.style.opacity = '1'; }, 200);
-  }
-}
-
-// Fetch on load + every 5 minutes
-fetchDolar();
-setInterval(fetchDolar, 5 * 60 * 1000);
-
-
-// ═══════════════════════════════════════════
-//  TIPO DE CAMBIO — dolarapi.com (tiempo real, CORS abierto)
-// ═══════════════════════════════════════════
-async function fetchDolar() {
-  try {
-    const res  = await fetch('https://dolarapi.com/v1/dolares', { signal: AbortSignal.timeout(8000) });
     const data = await res.json();
 
     const fmt  = v => v ? '$' + Number(v).toLocaleString('es-AR', {minimumFractionDigits:0, maximumFractionDigits:0}) : '—';
@@ -2566,14 +2502,14 @@ async function fetchDolar() {
       document.getElementById('usdBlueVar').textContent = 'Compra: ' + fmt(b.compra);
     }
 
-    document.getElementById('usdLastUpdate').textContent =
+    const _lu = document.getElementById('usdLastUpdate'); if(_lu) _lu.textContent =
       'Act: ' + new Date().toLocaleTimeString('es-AR', {hour:'2-digit', minute:'2-digit'}) + ' · dolarapi.com';
 
     // Also update ticker with oficial rate
     if (oficial) updateTickerUsd(oficial.venta);
 
   } catch(e) {
-    document.getElementById('usdLastUpdate').textContent = 'Error al cargar tipo de cambio';
+    const _lu = document.getElementById('usdLastUpdate'); if(_lu) _lu.textContent = 'Error al cargar tipo de cambio';
     console.warn('Dolar API error:', e.message);
   }
 }
