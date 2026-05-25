@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AGROTERM · Santa Fe & Entre Ríos</title>
+<title>AGROTERM · Santa Fe & Entre Ríos · v3</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -1321,10 +1321,10 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
           <table class="comp-table">
             <thead><tr><th>CULTIVO</th><th>22/23</th><th>23/24</th><th>24/25</th><th>VAR.</th></tr></thead>
             <tbody>
-              <tr><td>SOJA</td><td>248.000</td><td>310.000</td><td class="hl-yellow" id="sojaProm">445.000</td><td class="change-up">▲ +25.9%</td></tr>
-              <tr><td>MAÍZ</td><td>138.000</td><td>175.000</td><td class="hl-yellow" id="maizProm">247.000</td><td class="change-up">▲ +24.6%</td></tr>
-              <tr><td>TRIGO</td><td>118.000</td><td>162.000</td><td class="hl-yellow" id="trigoProm">205.000</td><td class="change-up">▲ +26.5%</td></tr>
-              <tr><td>GIRASOL</td><td>218.000</td><td>295.000</td><td class="hl-yellow" id="girasolProm">348.000</td><td class="change-up">▲ +17.9%</td></tr>
+              <tr><td>SOJA</td><td>310.000</td><td>395.000</td><td class="hl-yellow" id="sojaProm">355.000</td><td class="change-dn">▼ -10.1%</td></tr>
+              <tr><td>MAÍZ</td><td>175.000</td><td>238.000</td><td class="hl-yellow" id="maizProm">295.000</td><td class="change-up">▲ +23.9%</td></tr>
+              <tr><td>TRIGO</td><td>162.000</td><td>248.000</td><td class="hl-yellow" id="trigoProm">318.000</td><td class="change-up">▲ +28.2%</td></tr>
+              <tr><td>GIRASOL</td><td>295.000</td><td>420.000</td><td class="hl-yellow" id="girasolProm">480.000</td><td class="change-up">▲ +14.3%</td></tr>
             </tbody>
           </table>
         </div>
@@ -1336,21 +1336,21 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
           <div style="display:flex;flex-direction:column;gap:8px">
             <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:7px">
               <span style="font-size:10px;color:var(--gray)">USD OFICIAL BNA</span>
-              <span class="hl-green" style="font-size:16px;font-weight:600" id="usdOficial">$1.065</span>
+              <span class="hl-green" style="font-size:16px;font-weight:600" id="usdOficial">$1.130</span>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);padding-bottom:7px">
               <span style="font-size:10px;color:var(--gray)">USD MEP / BOLSA</span>
-              <span style="color:var(--blue);font-size:16px;font-weight:600" id="usdMep">$1.078</span>
+              <span style="color:var(--blue);font-size:16px;font-weight:600" id="usdMep">$1.148</span>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center">
               <span style="font-size:10px;color:var(--gray)">USD CCL</span>
-              <span style="color:var(--orange);font-size:16px;font-weight:600" id="usdCcl">$1.082</span>
+              <span style="color:var(--orange);font-size:16px;font-weight:600" id="usdCcl">$1.155</span>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">
               <span style="font-size:10px;color:var(--gray)">USD BLUE</span>
               <span style="color:var(--red);font-size:16px;font-weight:600" id="usdBlue">—</span>
             </div>
-            <div style="margin-top:8px;font-size:9px;color:var(--gray2);text-align:right" id="fxSource">Actualizando...</div>
+            <div style="margin-top:8px;font-size:9px;color:var(--gray2);text-align:right" id="usdLastUpdate">Actualizando...</div>
           </div>
         </div>
       </div>
@@ -1376,10 +1376,10 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
         </div>
         <div class="panel-body">
           <div class="zone-grid">
-            <div class="zone hi"><div class="zone-tag">MÁS ALTO</div><div class="zone-name">ZONA NÚCLEO · SUR SF</div><div class="zone-price">17–20</div><div class="zone-unit">qq soja/ha · ~$175k/ha</div></div>
-            <div class="zone med"><div class="zone-tag">ALTO</div><div class="zone-name">CENTRO SF · STA FE</div><div class="zone-price">14–17</div><div class="zone-unit">qq soja/ha · ~$149k/ha</div></div>
-            <div class="zone med"><div class="zone-tag">MEDIO</div><div class="zone-name">NORTE SF · RAFAELA</div><div class="zone-price">12–15</div><div class="zone-unit">qq soja/ha · ~$132k/ha</div></div>
-            <div class="zone med"><div class="zone-tag">ALTO</div><div class="zone-name">SUR SF · VENADO T.</div><div class="zone-price">14–18</div><div class="zone-unit">qq soja/ha · ~$158k/ha · suelos clase 1-2</div></div>
+            <div class="zone hi"><div class="zone-tag">MÁS ALTO</div><div class="zone-name">ZONA NÚCLEO · SUR SF</div><div class="zone-price">17–20</div><div class="zone-unit">qq soja/ha · ~$604k–$710k/ha</div></div>
+            <div class="zone med"><div class="zone-tag">ALTO</div><div class="zone-name">CENTRO SF · STA FE</div><div class="zone-price">14–17</div><div class="zone-unit">qq soja/ha · ~$497k–$604k/ha</div></div>
+            <div class="zone med"><div class="zone-tag">MEDIO</div><div class="zone-name">NORTE SF · RAFAELA</div><div class="zone-price">12–15</div><div class="zone-unit">qq soja/ha · ~$426k–$533k/ha</div></div>
+            <div class="zone med"><div class="zone-tag">ALTO</div><div class="zone-name">SUR SF · VENADO T.</div><div class="zone-price">14–18</div><div class="zone-unit">qq soja/ha · ~$497k–$639k/ha · suelos clase 1-2</div></div>
           </div>
         </div>
       </div>
@@ -1392,10 +1392,10 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
         </div>
         <div class="panel-body">
           <div class="zone-grid">
-            <div class="zone med"><div class="zone-tag">ALTO</div><div class="zone-name">SUR ER · GUALEGUAYCHÚ</div><div class="zone-price">11–14</div><div class="zone-unit">qq soja/ha · suelos buenos</div></div>
-            <div class="zone med"><div class="zone-tag">MEDIO</div><div class="zone-name">CENTRO ER · PARANÁ</div><div class="zone-price">9–12</div><div class="zone-unit">qq soja/ha · ~$105k/ha</div></div>
+            <div class="zone med"><div class="zone-tag">ALTO</div><div class="zone-name">SUR ER · GUALEGUAYCHÚ</div><div class="zone-price">11–14</div><div class="zone-unit">qq soja/ha · ~$391k–$497k/ha</div></div>
+            <div class="zone med"><div class="zone-tag">MEDIO</div><div class="zone-name">CENTRO ER · PARANÁ</div><div class="zone-price">9–12</div><div class="zone-unit">qq soja/ha · ~$320k–$426k/ha</div></div>
             <div class="zone lo"><div class="zone-tag">MODERADO</div><div class="zone-name">VICTORIA / GUALEGUAY</div><div class="zone-price">6–10</div><div class="zone-unit">qq soja/ha · aptitud parcial</div></div>
-            <div class="zone lo"><div class="zone-tag">MENOR</div><div class="zone-name">NORTE ER · FEDERACIÓN</div><div class="zone-price">4–7</div><div class="zone-unit">qq soja/ha · ~$55k/ha</div></div>
+            <div class="zone lo"><div class="zone-tag">MENOR</div><div class="zone-name">NORTE ER · FEDERACIÓN</div><div class="zone-price">4–7</div><div class="zone-unit">qq soja/ha · ~$142k–$249k/ha</div></div>
           </div>
         </div>
       </div>
@@ -1412,14 +1412,14 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
           <table class="ins-table">
             <thead><tr><th>INSUMO</th><th>DOSIS</th><th>$/UNIDAD</th><th>$/HA</th><th>% COSTO</th><th>VAR.</th></tr></thead>
             <tbody>
-              <tr><td>SEMILLA SOJA RR</td><td>65 kg</td><td>$3.200</td><td class="hl-yellow">$208.000</td><td>18%</td><td class="change-up">▲ +22%</td></tr>
-              <tr><td>GLIFOSATO 4L</td><td>4 L</td><td>$8.500</td><td class="hl-yellow">$34.000</td><td>3%</td><td class="change-up">▲ +18%</td></tr>
-              <tr><td>HERBICIDA SELECT.</td><td>2.5 L</td><td>$22.000</td><td class="hl-yellow">$55.000</td><td>5%</td><td class="change-up">▲ +15%</td></tr>
-              <tr><td>INSECTICIDA</td><td>150 cc</td><td>$480/cc</td><td class="hl-yellow">$72.000</td><td>6%</td><td class="change-up">▲ +20%</td></tr>
-              <tr><td>FERTILIZANTE MAP</td><td>60 kg</td><td>$1.850</td><td class="hl-yellow">$111.000</td><td>10%</td><td class="change-up">▲ +28%</td></tr>
-              <tr><td>SIEMBRA + PULV. + COSECHA</td><td>—</td><td>—</td><td class="hl-yellow">$198.000</td><td>17%</td><td class="change-up">▲ +32%</td></tr>
-              <tr><td>FLETE A PUERTO</td><td>3.4 t</td><td>$38.000/t</td><td class="hl-yellow">$129.000</td><td>11%</td><td class="change-up">▲ +25%</td></tr>
-              <tr class="ins-total"><td>TOTAL DIRECTO (sin arrendamiento)</td><td colspan="2"></td><td>$807.000</td><td>70%</td><td class="change-up">▲ +24%</td></tr>
+              <tr><td>SEMILLA SOJA RR</td><td>65 kg</td><td>$4.800</td><td class="hl-yellow">$312.000</td><td>18%</td><td class="change-up">▲ +50%</td></tr>
+              <tr><td>GLIFOSATO 4L</td><td>4 L</td><td>$11.500</td><td class="hl-yellow">$46.000</td><td>3%</td><td class="change-up">▲ +35%</td></tr>
+              <tr><td>HERBICIDA SELECT.</td><td>2.5 L</td><td>$29.500</td><td class="hl-yellow">$73.750</td><td>4%</td><td class="change-up">▲ +34%</td></tr>
+              <tr><td>INSECTICIDA</td><td>150 cc</td><td>$640/cc</td><td class="hl-yellow">$96.000</td><td>5%</td><td class="change-up">▲ +33%</td></tr>
+              <tr><td>FERTILIZANTE MAP</td><td>60 kg</td><td>$2.450</td><td class="hl-yellow">$147.000</td><td>8%</td><td class="change-up">▲ +32%</td></tr>
+              <tr><td>SIEMBRA + PULV. + COSECHA</td><td>—</td><td>—</td><td class="hl-yellow">$268.000</td><td>15%</td><td class="change-up">▲ +35%</td></tr>
+              <tr><td>FLETE A PUERTO</td><td>3.4 t</td><td>$52.000/t</td><td class="hl-yellow">$176.800</td><td>10%</td><td class="change-up">▲ +37%</td></tr>
+              <tr class="ins-total"><td>TOTAL DIRECTO (sin arrendamiento)</td><td colspan="2"></td><td>$1.119.550</td><td>63%</td><td class="change-up">▲ +39%</td></tr>
             </tbody>
           </table>
         </div>
@@ -1433,26 +1433,26 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
   <div class="kpi-grid">
     <div class="kpi green">
       <div class="kpi-label">NOVILLO ESP. — LINIERS</div>
-      <div class="kpi-val green price-clickable" id="hac-novEsp" onclick="openChartModal('Novillo Especial','Liniers / Cañuelas','🐄',4750,85,1.8,'Mercado Liniers / Cañuelas')">$4.750<span class="kpi-unit">/kg</span></div>
-      <div class="kpi-delta up" id="hac-novEspVar">▲ +8.4% vs año ant.</div>
+      <div class="kpi-val green price-clickable" id="hac-novEsp" onclick="openChartModal('Novillo Especial','Liniers / Cañuelas','🐄',6950,180,2.7,'Mercado Liniers / Cañuelas')">$6.950<span class="kpi-unit">/kg</span></div>
+      <div class="kpi-delta up" id="hac-novEspVar">▲ +47.4% vs año ant.</div>
       <div class="kpi-sub" id="hac-novEspTs">Cargando...</div>
     </div>
     <div class="kpi green">
       <div class="kpi-label">NOVILLITO — LINIERS</div>
-      <div class="kpi-val green price-clickable" id="hac-novillito" onclick="openChartModal('Novillito','Liniers / Cañuelas','🐄',5400,120,2.3,'Mercado Liniers / Cañuelas')">$5.400<span class="kpi-unit">/kg</span></div>
-      <div class="kpi-delta up" id="hac-novillitoVar">▲ +7.1% vs año ant.</div>
+      <div class="kpi-val green price-clickable" id="hac-novillito" onclick="openChartModal('Novillito','Liniers / Cañuelas','🐄',7400,210,2.9,'Mercado Liniers / Cañuelas')">$7.400<span class="kpi-unit">/kg</span></div>
+      <div class="kpi-delta up" id="hac-novillitoVar">▲ +37.0% vs año ant.</div>
       <div class="kpi-sub" id="hac-novillitoTs">Cargando...</div>
     </div>
     <div class="kpi yellow">
       <div class="kpi-label">TERNERO INVERNADA</div>
-      <div class="kpi-val yellow price-clickable" id="hac-ternero" onclick="openChartModal('Ternero Invernada','Liniers / Cañuelas','🐄',6200,150,2.5,'Mercado Liniers / Cañuelas')">$6.200<span class="kpi-unit">/kg</span></div>
-      <div class="kpi-delta up" id="hac-terneroVar">▲ +11.2% vs año ant.</div>
+      <div class="kpi-val yellow price-clickable" id="hac-ternero" onclick="openChartModal('Ternero Invernada','Liniers / Cañuelas','🐄',8500,250,3.0,'Mercado Liniers / Cañuelas')">$8.500<span class="kpi-unit">/kg</span></div>
+      <div class="kpi-delta up" id="hac-terneroVar">▲ +37.1% vs año ant.</div>
       <div class="kpi-sub" id="hac-terneroTs">Cargando...</div>
     </div>
     <div class="kpi">
       <div class="kpi-label">VACA CONSUMO</div>
-      <div class="kpi-val white price-clickable" id="hac-vaca" onclick="openChartModal('Vaca Consumo','Liniers / Cañuelas','🐄',3800,60,1.6,'Mercado Liniers / Cañuelas')">$3.800<span class="kpi-unit">/kg</span></div>
-      <div class="kpi-delta up" id="hac-vacaVar">▲ +5.2% vs año ant.</div>
+      <div class="kpi-val white price-clickable" id="hac-vaca" onclick="openChartModal('Vaca Consumo','Liniers / Cañuelas','🐄',5200,120,2.4,'Mercado Liniers / Cañuelas')">$5.200<span class="kpi-unit">/kg</span></div>
+      <div class="kpi-delta up" id="hac-vacaVar">▲ +36.8% vs año ant.</div>
       <div class="kpi-sub" id="hac-vacaTs">Cargando...</div>
     </div>
   </div>
@@ -1490,15 +1490,16 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
         <div class="panel-hdr"><div class="panel-title">ÍNDICE HISTÓRICO HACIENDA · base 100 = ene 2023</div></div>
         <div class="panel-body">
           <div class="bar-chart" style="height:100px">
-            <div class="bar-col"><div class="bar-val">100</div><div class="bar-fill" style="height:37%;background:#1a2a1a"></div><div class="bar-lbl">Ene23</div></div>
-            <div class="bar-col"><div class="bar-val">118</div><div class="bar-fill" style="height:44%;background:#1a2a1a"></div><div class="bar-lbl">Mar23</div></div>
-            <div class="bar-col"><div class="bar-val">145</div><div class="bar-fill" style="height:54%;background:#1a2a1a"></div><div class="bar-lbl">Jun23</div></div>
-            <div class="bar-col"><div class="bar-val">162</div><div class="bar-fill" style="height:60%;background:#1a2a1a"></div><div class="bar-lbl">Sep23</div></div>
-            <div class="bar-col"><div class="bar-val">190</div><div class="bar-fill" style="height:71%;background:#1e3020"></div><div class="bar-lbl">Dic23</div></div>
-            <div class="bar-col"><div class="bar-val">218</div><div class="bar-fill" style="height:81%;background:#1e3020"></div><div class="bar-lbl">Mar24</div></div>
-            <div class="bar-col"><div class="bar-val">242</div><div class="bar-fill" style="height:90%;background:#1e3020"></div><div class="bar-lbl">Sep24</div></div>
-            <div class="bar-col"><div class="bar-val" style="color:var(--green)">268</div><div class="bar-fill" style="height:100%;background:linear-gradient(180deg,#00ff41,#007a1e)"></div><div class="bar-lbl" style="color:var(--green)">Mar25</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">100</div><div class="bar-fill" style="height:22%;background:#1a2a1a"></div><div class="bar-lbl">Ene23</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">145</div><div class="bar-fill" style="height:32%;background:#1a2a1a"></div><div class="bar-lbl">Jun23</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">190</div><div class="bar-fill" style="height:42%;background:#1e3020"></div><div class="bar-lbl">Dic23</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">218</div><div class="bar-fill" style="height:48%;background:#1e3020"></div><div class="bar-lbl">Mar24</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">270</div><div class="bar-fill" style="height:59%;background:#1e3020"></div><div class="bar-lbl">Sep24</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">310</div><div class="bar-fill" style="height:68%;background:#1e3020"></div><div class="bar-lbl">Dic24</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">368</div><div class="bar-fill" style="height:80%;background:#1a3a20"></div><div class="bar-lbl">Mar25</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px;color:var(--green)">455</div><div class="bar-fill" style="height:100%;background:linear-gradient(180deg,#00ff41,#007a1e)"></div><div class="bar-lbl" style="color:var(--green)">May25</div></div>
           </div>
+          <div style="font-size:8px;color:var(--gray2);margin-top:4px">Novillo Especial · base 100 = $1.530/kg (ene-2023)</div>
         </div>
       </div>
 
@@ -1508,10 +1509,10 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
           <table class="comp-table">
             <thead><tr><th>CATEGORÍA</th><th>2023</th><th>2024</th><th>2025</th><th>VAR.</th></tr></thead>
             <tbody>
-              <tr><td>NOV. ESP.</td><td>2.200</td><td>3.500</td><td class="hl-green">4.750</td><td class="change-up">▲ +35.7%</td></tr>
-              <tr><td>NOVILLITO</td><td>2.100</td><td>3.800</td><td class="hl-green">5.400</td><td class="change-up">▲ +42.1%</td></tr>
-              <tr><td>VACA</td><td>1.600</td><td>2.800</td><td class="hl-green">3.800</td><td class="change-up">▲ +35.7%</td></tr>
-              <tr><td>TERNERO</td><td>2.800</td><td>4.500</td><td class="hl-yellow">6.200</td><td class="change-up">▲ +37.7%</td></tr>
+              <tr><td>NOV. ESP.</td><td>3.500</td><td>4.720</td><td class="hl-green">6.950</td><td class="change-up">▲ +47.4%</td></tr>
+              <tr><td>NOVILLITO</td><td>3.800</td><td>5.400</td><td class="hl-green">7.400</td><td class="change-up">▲ +37.0%</td></tr>
+              <tr><td>VACA</td><td>2.800</td><td>3.800</td><td class="hl-green">5.200</td><td class="change-up">▲ +36.8%</td></tr>
+              <tr><td>TERNERO</td><td>4.500</td><td>6.200</td><td class="hl-yellow">8.500</td><td class="change-up">▲ +37.1%</td></tr>
             </tbody>
           </table>
         </div>
@@ -1523,24 +1524,24 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
 <!-- ══════════ CERDOS ══════════ -->
 <div class="section" id="sec-cerdos">
   <div class="kpi-grid">
-    <div class="kpi green"><div class="kpi-label">CAPÓN EN PIE</div><div class="kpi-val green">$2.450<span class="kpi-unit">/kg</span></div><div class="kpi-delta up">▲ +12.5% vs año ant.</div><div class="kpi-sub">Promedio ponderado nacional</div></div>
-    <div class="kpi yellow"><div class="kpi-label">LECHÓN EN PIE</div><div class="kpi-val yellow">$3.180<span class="kpi-unit">/kg</span></div><div class="kpi-delta up">▲ +9.8% vs año ant.</div><div class="kpi-sub">Demanda estacional alta</div></div>
-    <div class="kpi green"><div class="kpi-label">CAPÓN — FAENA CANAL</div><div class="kpi-val green">$4.820<span class="kpi-unit">/kg</span></div><div class="kpi-delta up">▲ +11.2% vs año ant.</div><div class="kpi-sub">Canal caliente</div></div>
-    <div class="kpi red"><div class="kpi-label">COSTO PRODUCCIÓN</div><div class="kpi-val red">$2.120<span class="kpi-unit">/kg</span></div><div class="kpi-delta dn">▼ Margen: ~$330/kg (13%)</div><div class="kpi-sub">Alimento + sanidad</div></div>
+    <div class="kpi green"><div class="kpi-label">CAPÓN EN PIE</div><div class="kpi-val green">$3.180<span class="kpi-unit">/kg</span></div><div class="kpi-delta up">▲ +29.8% vs año ant.</div><div class="kpi-sub">Promedio ponderado nacional</div></div>
+    <div class="kpi yellow"><div class="kpi-label">LECHÓN EN PIE</div><div class="kpi-val yellow">$4.250<span class="kpi-unit">/kg</span></div><div class="kpi-delta up">▲ +33.6% vs año ant.</div><div class="kpi-sub">Demanda estacional alta</div></div>
+    <div class="kpi green"><div class="kpi-label">CAPÓN — FAENA CANAL</div><div class="kpi-val green">$6.100<span class="kpi-unit">/kg</span></div><div class="kpi-delta up">▲ +26.6% vs año ant.</div><div class="kpi-sub">Canal caliente</div></div>
+    <div class="kpi red"><div class="kpi-label">COSTO PRODUCCIÓN</div><div class="kpi-val red">$2.850<span class="kpi-unit">/kg</span></div><div class="kpi-delta dn">▼ Margen: ~$330/kg (10%)</div><div class="kpi-sub">Alimento + sanidad</div></div>
   </div>
   <div class="row">
     <div class="col2">
       <div class="panel">
-        <div class="panel-hdr"><div class="panel-title">CATEGORÍAS PORCINAS — PRECIOS EN PIE</div><div class="panel-meta">UNICA / SENASA</div></div>
+        <div class="panel-hdr"><div class="panel-title">CATEGORÍAS PORCINAS — PRECIOS EN PIE</div><div class="panel-meta">UNICA / SENASA · may-2025</div></div>
         <div class="panel-body" style="padding:0">
           <table class="hac-table">
             <thead><tr><th>CATEGORÍA</th><th>$/KG PIE</th><th>VAR. HOY</th><th>2023</th><th>2024</th><th>2025</th><th>VAR. AÑO</th></tr></thead>
             <tbody>
-              <tr><td><div class="cat-label">Capón 90–110 kg</div><div class="cat-sub">Consumo / faena principal</div></td><td class="hl-green">$2.450</td><td class="change-up">▲ +0.4%</td><td>1.120</td><td>2.178</td><td class="hl-yellow">2.450</td><td class="change-up">▲ +12.5%</td></tr>
-              <tr><td><div class="cat-label">Capón pesado +120 kg</div><div class="cat-sub">Industria / chacinados</div></td><td class="hl-green">$2.280</td><td class="change-up">▲ +0.2%</td><td>1.040</td><td>2.058</td><td class="hl-yellow">2.280</td><td class="change-up">▲ +10.8%</td></tr>
-              <tr><td><div class="cat-label">Lechón hasta 25 kg</div><div class="cat-sub">Consumo especial</div></td><td class="hl-yellow">$3.180</td><td class="change-up">▲ +1.1%</td><td>1.580</td><td>2.896</td><td class="hl-yellow">3.180</td><td class="change-up">▲ +9.8%</td></tr>
-              <tr><td><div class="cat-label">Cerda descarte</div><div class="cat-sub">Faena industrial</div></td><td>$1.980</td><td class="change-up">▲ +0.3%</td><td>960</td><td>1.830</td><td class="hl-yellow">1.980</td><td class="change-up">▲ +8.2%</td></tr>
-              <tr><td><div class="cat-label">Verraco</div><div class="cat-sub">Descarte</div></td><td>$1.820</td><td>—</td><td>880</td><td>1.716</td><td class="hl-yellow">1.820</td><td class="change-up">▲ +6.1%</td></tr>
+              <tr><td><div class="cat-label">Capón 90–110 kg</div><div class="cat-sub">Consumo / faena principal</div></td><td class="hl-green">$3.180</td><td class="change-up">▲ +0.6%</td><td>1.120</td><td>2.450</td><td class="hl-yellow">3.180</td><td class="change-up">▲ +29.8%</td></tr>
+              <tr><td><div class="cat-label">Capón pesado +120 kg</div><div class="cat-sub">Industria / chacinados</div></td><td class="hl-green">$2.950</td><td class="change-up">▲ +0.3%</td><td>1.040</td><td>2.280</td><td class="hl-yellow">2.950</td><td class="change-up">▲ +29.4%</td></tr>
+              <tr><td><div class="cat-label">Lechón hasta 25 kg</div><div class="cat-sub">Consumo especial</div></td><td class="hl-yellow">$4.250</td><td class="change-up">▲ +1.2%</td><td>1.580</td><td>3.180</td><td class="hl-yellow">4.250</td><td class="change-up">▲ +33.6%</td></tr>
+              <tr><td><div class="cat-label">Cerda descarte</div><div class="cat-sub">Faena industrial</div></td><td>$2.580</td><td class="change-up">▲ +0.4%</td><td>960</td><td>1.980</td><td class="hl-yellow">2.580</td><td class="change-up">▲ +30.3%</td></tr>
+              <tr><td><div class="cat-label">Verraco</div><div class="cat-sub">Descarte</div></td><td>$2.380</td><td>—</td><td>880</td><td>1.820</td><td class="hl-yellow">2.380</td><td class="change-up">▲ +30.8%</td></tr>
             </tbody>
           </table>
         </div>
@@ -1551,11 +1552,11 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
         <div class="panel-hdr"><div class="panel-title">FAENA MENSUAL — CABEZAS</div></div>
         <div class="panel-body">
           <div class="bar-chart" style="height:90px">
-            <div class="bar-col"><div class="bar-val" style="font-size:8px">4.8M</div><div class="bar-fill" style="height:70%;background:#1e2a1e"></div><div class="bar-lbl">Mar24</div></div>
-            <div class="bar-col"><div class="bar-val" style="font-size:8px">5.1M</div><div class="bar-fill" style="height:77%;background:#1e2a1e"></div><div class="bar-lbl">Jun24</div></div>
-            <div class="bar-col"><div class="bar-val" style="font-size:8px">5.4M</div><div class="bar-fill" style="height:82%;background:#1e2a1e"></div><div class="bar-lbl">Sep24</div></div>
-            <div class="bar-col"><div class="bar-val" style="font-size:8px">5.8M</div><div class="bar-fill" style="height:88%;background:#1e2a1e"></div><div class="bar-lbl">Dic24</div></div>
-            <div class="bar-col"><div class="bar-val" style="font-size:8px;color:var(--green)">6.6M</div><div class="bar-fill" style="height:100%;background:linear-gradient(180deg,#00ff41,#007a1e)"></div><div class="bar-lbl" style="color:var(--green)">Mar25</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">5.1M</div><div class="bar-fill" style="height:68%;background:#1e2a1e"></div><div class="bar-lbl">Jun24</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">5.4M</div><div class="bar-fill" style="height:76%;background:#1e2a1e"></div><div class="bar-lbl">Sep24</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">5.8M</div><div class="bar-fill" style="height:84%;background:#1e2a1e"></div><div class="bar-lbl">Dic24</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">6.6M</div><div class="bar-fill" style="height:94%;background:#1e3a20"></div><div class="bar-lbl">Mar25</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px;color:var(--green)">6.9M</div><div class="bar-fill" style="height:100%;background:linear-gradient(180deg,#00ff41,#007a1e)"></div><div class="bar-lbl" style="color:var(--green)">May25</div></div>
           </div>
         </div>
       </div>
@@ -1566,24 +1567,24 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
 <!-- ══════════ POLLOS ══════════ -->
 <div class="section" id="sec-pollos">
   <div class="kpi-grid">
-    <div class="kpi green"><div class="kpi-label">PARRILLERO VIVO</div><div class="kpi-val green">$1.280<span class="kpi-unit">/kg</span></div><div class="kpi-delta up">▲ +14.2% vs año ant.</div><div class="kpi-sub">2.8–3.2 kg promedio</div></div>
-    <div class="kpi green"><div class="kpi-label">POLLO FAENA MAYOR.</div><div class="kpi-val green">$2.450<span class="kpi-unit">/kg</span></div><div class="kpi-delta up">▲ +13.8% vs año ant.</div><div class="kpi-sub">Fresco entero en planta</div></div>
-    <div class="kpi yellow"><div class="kpi-label">POLLITO BB</div><div class="kpi-val yellow">$1.850<span class="kpi-unit">/unid</span></div><div class="kpi-delta up">▲ +22.1% vs año ant.</div><div class="kpi-sub">Incubadoras · Ross 308</div></div>
-    <div class="kpi"><div class="kpi-label">COSTO PRODUCCIÓN</div><div class="kpi-val white">$980<span class="kpi-unit">/kg</span></div><div class="kpi-delta up" style="color:var(--blue)">▲ Margen: ~$300/kg (23%)</div><div class="kpi-sub">Alimento + sanidad + energía</div></div>
+    <div class="kpi green"><div class="kpi-label">PARRILLERO VIVO</div><div class="kpi-val green">$1.680<span class="kpi-unit">/kg</span></div><div class="kpi-delta up">▲ +31.2% vs año ant.</div><div class="kpi-sub">2.8–3.2 kg promedio</div></div>
+    <div class="kpi green"><div class="kpi-label">POLLO FAENA MAYOR.</div><div class="kpi-val green">$3.250<span class="kpi-unit">/kg</span></div><div class="kpi-delta up">▲ +32.7% vs año ant.</div><div class="kpi-sub">Fresco entero en planta</div></div>
+    <div class="kpi yellow"><div class="kpi-label">POLLITO BB</div><div class="kpi-val yellow">$2.480<span class="kpi-unit">/unid</span></div><div class="kpi-delta up">▲ +34.1% vs año ant.</div><div class="kpi-sub">Incubadoras · Ross 308</div></div>
+    <div class="kpi"><div class="kpi-label">COSTO PRODUCCIÓN</div><div class="kpi-val white">$1.320<span class="kpi-unit">/kg</span></div><div class="kpi-delta up" style="color:var(--blue)">▲ Margen: ~$360/kg (21%)</div><div class="kpi-sub">Alimento + sanidad + energía</div></div>
   </div>
   <div class="row">
     <div class="col2">
       <div class="panel">
-        <div class="panel-hdr"><div class="panel-title">CATEGORÍAS / PRESENTACIONES — AVIAR</div><div class="panel-meta">SENASA / CEPA</div></div>
+        <div class="panel-hdr"><div class="panel-title">CATEGORÍAS / PRESENTACIONES — AVIAR</div><div class="panel-meta">SENASA / CEPA · may-2025</div></div>
         <div class="panel-body" style="padding:0">
           <table class="hac-table">
             <thead><tr><th>PRODUCTO</th><th>PRECIO</th><th>UNIDAD</th><th>2023</th><th>2024</th><th>2025</th><th>VAR. AÑO</th></tr></thead>
             <tbody>
-              <tr><td><div class="cat-label">Parrillero vivo en granja</div><div class="cat-sub">2.8–3.2 kg promedio</div></td><td class="hl-green">$1.280</td><td class="hl-gray">/kg</td><td>520</td><td>1.121</td><td class="hl-yellow">1.280</td><td class="change-up">▲ +14.2%</td></tr>
-              <tr><td><div class="cat-label">Pollo entero frío mayorista</div><div class="cat-sub">Planta frigorífica</div></td><td class="hl-green">$2.450</td><td class="hl-gray">/kg</td><td>980</td><td>2.153</td><td class="hl-yellow">2.450</td><td class="change-up">▲ +13.8%</td></tr>
-              <tr><td><div class="cat-label">Huevo · docena cat. A</div><div class="cat-sub">Mayorista / minorista</div></td><td class="hl-yellow">$4.280</td><td class="hl-gray">/doc.</td><td>1.240</td><td>3.616</td><td class="hl-yellow">4.280</td><td class="change-up">▲ +18.4%</td></tr>
-              <tr><td><div class="cat-label">Pollito BB (Ross 308)</div><div class="cat-sub">Incubadora</div></td><td class="hl-yellow">$1.850</td><td class="hl-gray">/unid.</td><td>480</td><td>1.515</td><td class="hl-yellow">1.850</td><td class="change-up">▲ +22.1%</td></tr>
-              <tr><td><div class="cat-label">Pechuga sin hueso</div><div class="cat-sub">Industria / retail</div></td><td class="hl-green">$4.850</td><td class="hl-gray">/kg</td><td>1.820</td><td>4.175</td><td class="hl-yellow">4.850</td><td class="change-up">▲ +16.2%</td></tr>
+              <tr><td><div class="cat-label">Parrillero vivo en granja</div><div class="cat-sub">2.8–3.2 kg promedio</div></td><td class="hl-green">$1.680</td><td class="hl-gray">/kg</td><td>520</td><td>1.280</td><td class="hl-yellow">1.680</td><td class="change-up">▲ +31.2%</td></tr>
+              <tr><td><div class="cat-label">Pollo entero frío mayorista</div><div class="cat-sub">Planta frigorífica</div></td><td class="hl-green">$3.250</td><td class="hl-gray">/kg</td><td>980</td><td>2.450</td><td class="hl-yellow">3.250</td><td class="change-up">▲ +32.7%</td></tr>
+              <tr><td><div class="cat-label">Huevo · docena cat. A</div><div class="cat-sub">Mayorista / minorista</div></td><td class="hl-yellow">$5.800</td><td class="hl-gray">/doc.</td><td>1.240</td><td>4.280</td><td class="hl-yellow">5.800</td><td class="change-up">▲ +35.5%</td></tr>
+              <tr><td><div class="cat-label">Pollito BB (Ross 308)</div><div class="cat-sub">Incubadora</div></td><td class="hl-yellow">$2.480</td><td class="hl-gray">/unid.</td><td>480</td><td>1.850</td><td class="hl-yellow">2.480</td><td class="change-up">▲ +34.1%</td></tr>
+              <tr><td><div class="cat-label">Pechuga sin hueso</div><div class="cat-sub">Industria / retail</div></td><td class="hl-green">$6.500</td><td class="hl-gray">/kg</td><td>1.820</td><td>4.850</td><td class="hl-yellow">6.500</td><td class="change-up">▲ +34.0%</td></tr>
             </tbody>
           </table>
         </div>
@@ -1594,10 +1595,10 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
         <div class="panel-hdr"><div class="panel-title">FAENA ANUAL · MILLONES DE POLLOS</div></div>
         <div class="panel-body">
           <div class="bar-chart" style="height:90px">
-            <div class="bar-col"><div class="bar-val" style="font-size:8px">1.18B</div><div class="bar-fill" style="height:80%;background:#1e2a1e"></div><div class="bar-lbl">2022</div></div>
-            <div class="bar-col"><div class="bar-val" style="font-size:8px">1.22B</div><div class="bar-fill" style="height:85%;background:#1e2a1e"></div><div class="bar-lbl">2023</div></div>
-            <div class="bar-col"><div class="bar-val" style="font-size:8px">1.27B</div><div class="bar-fill" style="height:90%;background:#1e2a1e"></div><div class="bar-lbl">2024</div></div>
-            <div class="bar-col"><div class="bar-val" style="font-size:8px;color:var(--yellow)">1.41B</div><div class="bar-fill" style="height:100%;background:linear-gradient(180deg,#ffd700,#7a6800)"></div><div class="bar-lbl" style="color:var(--yellow)">2025p</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">1.18B</div><div class="bar-fill" style="height:72%;background:#1e2a1e"></div><div class="bar-lbl">2022</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">1.22B</div><div class="bar-fill" style="height:78%;background:#1e2a1e"></div><div class="bar-lbl">2023</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">1.27B</div><div class="bar-fill" style="height:84%;background:#1e2a1e"></div><div class="bar-lbl">2024</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px;color:var(--yellow)">1.43B</div><div class="bar-fill" style="height:100%;background:linear-gradient(180deg,#ffd700,#7a6800)"></div><div class="bar-lbl" style="color:var(--yellow)">2025p</div></div>
           </div>
         </div>
       </div>
@@ -1612,27 +1613,27 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
   <div class="kpi-grid">
     <div class="kpi green">
       <div class="kpi-label">LECHE AL PRODUCTOR · NACIONAL</div>
-      <div class="kpi-val green">USD 0.374<span class="kpi-unit">/litro</span></div>
-      <div class="kpi-delta up">▲ Panel 18 empresas · Jul 2025</div>
-      <div class="kpi-sub">OCLA · TC Mayorista $1.267/USD</div>
+      <div class="kpi-val green">USD 0.388<span class="kpi-unit">/litro</span></div>
+      <div class="kpi-delta up">▲ Panel 18 empresas · Abr 2025</div>
+      <div class="kpi-sub">OCLA · TC Mayorista $1.130/USD</div>
     </div>
     <div class="kpi yellow">
       <div class="kpi-label">LECHE EN POLVO ENTERA · GDT</div>
-      <div class="kpi-val yellow">USD 4.169<span class="kpi-unit">/t</span></div>
-      <div class="kpi-delta up">▲ +4.1% última subasta GDT</div>
+      <div class="kpi-val yellow">USD 4.320<span class="kpi-unit">/t</span></div>
+      <div class="kpi-delta up">▲ +3.6% última subasta GDT</div>
       <div class="kpi-sub">Fonterra · Principal export. arg.</div>
     </div>
     <div class="kpi" style="">
       <div class="kpi-label">LECHE EN POLVO DESCREMADA · GDT</div>
-      <div class="kpi-val" style="color:var(--blue)">USD 2.835<span class="kpi-unit">/t</span></div>
-      <div class="kpi-delta up" style="color:var(--blue)">▲ +4.7% última subasta GDT</div>
+      <div class="kpi-val" style="color:var(--blue)">USD 3.050<span class="kpi-unit">/t</span></div>
+      <div class="kpi-delta up" style="color:var(--blue)">▲ +7.6% vs inicio 2025</div>
       <div class="kpi-sub">Fonterra · GDT subasta quincenal</div>
     </div>
     <div class="kpi red">
       <div class="kpi-label">PRECIO REAL CONSTANTE</div>
-      <div class="kpi-val red">MÍN 5 AÑOS<span class="kpi-unit"> 1T25</span></div>
-      <div class="kpi-delta dn">▼ Precios 1T2025 más bajos en 5 años</div>
-      <div class="kpi-sub">OCLA · Marzo 2025 en $ constantes</div>
+      <div class="kpi-val red">RECUPERANDO<span class="kpi-unit"> 2T25</span></div>
+      <div class="kpi-delta up" style="color:var(--yellow)">▲ Mejora leve vs mínimo 1T25</div>
+      <div class="kpi-sub">OCLA · Aún bajo vs promedio 5 años</div>
     </div>
   </div>
 
@@ -1661,51 +1662,51 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
               <tr>
                 <td><span style="color:var(--yellow)">ABASTO SUR</span></td>
                 <td style="color:var(--gray)">Santa Fe / Bs.As.</td>
-                <td class="hl-green" style="font-size:13px;font-weight:600">$502</td>
-                <td style="color:var(--blue)">USD 0.396</td>
+                <td class="hl-green" style="font-size:13px;font-weight:600">$542</td>
+                <td style="color:var(--blue)">USD 0.480</td>
                 <td>$418</td>
                 <td>$198</td>
-                <td class="change-up">▲ +20.1%</td>
+                <td class="change-up">▲ +29.7%</td>
               </tr>
               <tr>
                 <td><span style="color:var(--yellow)">ENTRE RÍOS</span></td>
                 <td style="color:var(--gray)">Entre Ríos</td>
-                <td class="hl-green" style="font-size:13px;font-weight:600">$478</td>
-                <td style="color:var(--blue)">USD 0.377</td>
+                <td class="hl-green" style="font-size:13px;font-weight:600">$518</td>
+                <td style="color:var(--blue)">USD 0.458</td>
                 <td>$392</td>
                 <td>$185</td>
-                <td class="change-up">▲ +21.9%</td>
+                <td class="change-up">▲ +32.1%</td>
               </tr>
               <tr>
                 <td><span style="color:var(--yellow)">CÓRDOBA NORTE</span></td>
                 <td style="color:var(--gray)">Córdoba</td>
-                <td class="hl-yellow" style="font-size:13px;font-weight:600">$524</td>
-                <td style="color:var(--blue)">USD 0.413</td>
+                <td class="hl-yellow" style="font-size:13px;font-weight:600">$568</td>
+                <td style="color:var(--blue)">USD 0.503</td>
                 <td>$435</td>
                 <td>$206</td>
-                <td class="change-up">▲ +20.5%</td>
+                <td class="change-up">▲ +30.6%</td>
               </tr>
               <tr>
                 <td><span style="color:var(--yellow)">MAR Y SIERRAS</span></td>
                 <td style="color:var(--gray)">Buenos Aires</td>
-                <td style="font-size:13px;font-weight:600">$458</td>
-                <td style="color:var(--blue)">USD 0.361</td>
+                <td style="font-size:13px;font-weight:600">$495</td>
+                <td style="color:var(--blue)">USD 0.438</td>
                 <td>$374</td>
                 <td>$176</td>
-                <td class="change-up">▲ +22.4%</td>
+                <td class="change-up">▲ +32.4%</td>
               </tr>
               <tr>
                 <td><span style="color:var(--gray2)">PROMEDIO NAC.</span></td>
                 <td style="color:var(--gray)">Argentina</td>
-                <td style="font-size:13px;font-weight:600;color:var(--white)">$474</td>
-                <td style="color:var(--blue)">USD 0.374</td>
+                <td style="font-size:13px;font-weight:600;color:var(--white)">$438</td>
+                <td style="color:var(--blue)">USD 0.388</td>
                 <td>$389</td>
                 <td>$183</td>
-                <td class="change-up">▲ +21.9%</td>
+                <td class="change-up">▲ +12.6%</td>
               </tr>
               <tr>
                 <td colspan="2" style="color:var(--gray2);font-size:9px">Amplitud máx-mín entre cuencas</td>
-                <td colspan="2" style="color:var(--red);font-size:10px;font-weight:600">$78/litro · 17.6%</td>
+                <td colspan="2" style="color:var(--red);font-size:10px;font-weight:600">$73/litro · 14.7%</td>
                 <td colspan="3" style="color:var(--gray2);font-size:9px">Mayor: Córdoba Norte · Menor: Mar y Sierras</td>
               </tr>
             </tbody>
@@ -1735,8 +1736,8 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
             <tbody>
               <tr>
                 <td><span style="color:var(--yellow)">LPE · ENTERA</span></td>
-                <td class="hl-yellow price-clickable" style="font-size:13px;font-weight:600" onclick="openChartModal('LPE · Leche en Polvo Entera','GDT/Fonterra','🥛',4169000,170929,4.1,'GDT Fonterra')">USD 4.169</td>
-                <td class="change-up">▲ +4.1%</td>
+                <td class="hl-yellow price-clickable" style="font-size:13px;font-weight:600" onclick="openChartModal('LPE · Leche en Polvo Entera','GDT/Fonterra','🥛',4320000,151200,3.6,'GDT Fonterra')">USD 4.320</td>
+                <td class="change-up">▲ +3.6%</td>
                 <td>USD 3.200</td>
                 <td>USD 3.650</td>
                 <td style="color:var(--gray)">USD 4.757 (Mar22)</td>
@@ -1744,8 +1745,8 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
               </tr>
               <tr>
                 <td><span style="color:var(--blue)">LPD · DESCREMADA</span></td>
-                <td style="color:var(--blue);font-size:13px;font-weight:600">USD 2.835</td>
-                <td class="change-up">▲ +4.7%</td>
+                <td style="color:var(--blue);font-size:13px;font-weight:600">USD 3.050</td>
+                <td class="change-up">▲ +7.6%</td>
                 <td>USD 2.450</td>
                 <td>USD 2.680</td>
                 <td style="color:var(--gray)">USD 4.240 (Jun22)</td>
@@ -1753,8 +1754,8 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
               </tr>
               <tr>
                 <td><span style="color:var(--orange)">MANTECA</span></td>
-                <td style="color:var(--orange);font-size:13px;font-weight:600">USD 6.068</td>
-                <td class="change-up">▲ +5.6%</td>
+                <td style="color:var(--orange);font-size:13px;font-weight:600">USD 6.480</td>
+                <td class="change-up">▲ +6.8%</td>
                 <td>USD 4.850</td>
                 <td>USD 5.200</td>
                 <td style="color:var(--gray)">USD 7.250 (Oct22)</td>
@@ -1762,8 +1763,8 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
               </tr>
               <tr>
                 <td><span style="color:var(--green)">ÍNDICE GDT GLOBAL</span></td>
-                <td class="hl-green" style="font-size:13px;font-weight:600">USD 4.296</td>
-                <td class="change-up">▲ +3.7%</td>
+                <td class="hl-green" style="font-size:13px;font-weight:600">USD 4.510</td>
+                <td class="change-up">▲ +4.9%</td>
                 <td>USD 3.623</td>
                 <td>USD 3.900</td>
                 <td style="color:var(--gray)">USD 4.656 (2022)</td>
@@ -1787,28 +1788,28 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
             <div style="font-size:9px;color:var(--gray);letter-spacing:1px;margin-bottom:8px">CUENCA ABASTO SUR (SANTA FE)</div>
             <div class="prog-bg"><div class="prog-fill" style="width:96%;background:linear-gradient(90deg,#7a6800,#ffd700)"></div></div>
             <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px">
-              <span style="color:var(--yellow);font-weight:600">$502/litro</span>
-              <span style="color:var(--gray)">USD 0.396</span>
+              <span style="color:var(--yellow);font-weight:600">$542/litro</span>
+              <span style="color:var(--gray)">USD 0.480</span>
             </div>
           </div>
           <div style="margin-bottom:14px">
             <div style="font-size:9px;color:var(--gray);letter-spacing:1px;margin-bottom:8px">ENTRE RÍOS</div>
             <div class="prog-bg"><div class="prog-fill" style="width:91%;background:linear-gradient(90deg,#004d14,#00ff41)"></div></div>
             <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px">
-              <span style="color:var(--green);font-weight:600">$478/litro</span>
-              <span style="color:var(--gray)">USD 0.377</span>
+              <span style="color:var(--green);font-weight:600">$518/litro</span>
+              <span style="color:var(--gray)">USD 0.458</span>
             </div>
           </div>
           <div style="margin-bottom:14px">
             <div style="font-size:9px;color:var(--gray);letter-spacing:1px;margin-bottom:8px">PROMEDIO NACIONAL</div>
-            <div class="prog-bg"><div class="prog-fill" style="width:90%;background:linear-gradient(90deg,#003d55,#00b4ff)"></div></div>
+            <div class="prog-bg"><div class="prog-fill" style="width:78%;background:linear-gradient(90deg,#003d55,#00b4ff)"></div></div>
             <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px">
-              <span style="color:var(--blue);font-weight:600">$474/litro</span>
-              <span style="color:var(--gray)">USD 0.374</span>
+              <span style="color:var(--blue);font-weight:600">$438/litro</span>
+              <span style="color:var(--gray)">USD 0.388</span>
             </div>
           </div>
-          <div style="padding:8px;background:rgba(255,59,48,0.08);border-left:2px solid var(--red);font-size:9px;color:var(--gray);margin-top:8px">
-            ⚠ Precio real en $ constantes en mínimos de 5 años (1T2025). Los precios nominales suben pero pierden contra inflación.
+          <div style="padding:8px;background:rgba(255,215,0,0.06);border-left:2px solid var(--yellow);font-size:9px;color:var(--gray);margin-top:8px">
+            ⚠ Precio real en $ constantes recuperándose desde mínimos 1T2025. Precios nominales en suba pero aún por debajo del promedio histórico en términos reales.
           </div>
         </div>
       </div>
@@ -1818,11 +1819,12 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
         <div class="panel-hdr"><div class="panel-title">GDT LPE · HISTÓRICO USD/t</div></div>
         <div class="panel-body">
           <div class="bar-chart" style="height:90px">
-            <div class="bar-col"><div class="bar-val" style="font-size:8px">3.260</div><div class="bar-fill" style="height:52%;background:#1e2a1e"></div><div class="bar-lbl">Prom.H</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">3.260</div><div class="bar-fill" style="height:50%;background:#1e2a1e"></div><div class="bar-lbl">Prom.H</div></div>
             <div class="bar-col"><div class="bar-val" style="font-size:8px;color:var(--red)">2.797</div><div class="bar-fill" style="height:38%;background:rgba(255,59,48,0.25)"></div><div class="bar-lbl" style="color:var(--red)">Min20</div></div>
-            <div class="bar-col"><div class="bar-val" style="font-size:8px">3.200</div><div class="bar-fill" style="height:51%;background:#1e2a1e"></div><div class="bar-lbl">2023</div></div>
-            <div class="bar-col"><div class="bar-val" style="font-size:8px">3.650</div><div class="bar-fill" style="height:64%;background:#1e2a1e"></div><div class="bar-lbl">2024</div></div>
-            <div class="bar-col"><div class="bar-val" style="font-size:8px;color:var(--yellow)">4.169</div><div class="bar-fill" style="height:80%;background:linear-gradient(180deg,#ffd700,#7a6800)"></div><div class="bar-lbl" style="color:var(--yellow)">Feb25</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">3.200</div><div class="bar-fill" style="height:49%;background:#1e2a1e"></div><div class="bar-lbl">2023</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">3.650</div><div class="bar-fill" style="height:62%;background:#1e2a1e"></div><div class="bar-lbl">2024</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px">4.169</div><div class="bar-fill" style="height:76%;background:#1e3a1e"></div><div class="bar-lbl">Feb25</div></div>
+            <div class="bar-col"><div class="bar-val" style="font-size:8px;color:var(--yellow)">4.320</div><div class="bar-fill" style="height:84%;background:linear-gradient(180deg,#ffd700,#7a6800)"></div><div class="bar-lbl" style="color:var(--yellow)">May25</div></div>
             <div class="bar-col"><div class="bar-val" style="font-size:8px;color:var(--gray2)">4.757</div><div class="bar-fill" style="height:100%;background:rgba(0,180,255,0.12);border:1px dashed #00b4ff44"></div><div class="bar-lbl" style="color:var(--blue)">Máx★</div></div>
           </div>
           <div style="font-size:8px;color:var(--gray2);margin-top:4px">★ Máximo histórico Mar 2022</div>
@@ -1851,6 +1853,10 @@ body.light .period-btn.active { background: rgba(0,122,30,0.12); }
 // ═══════════════════════════════════════════
 //  CONFIG
 // ═══════════════════════════════════════════
+// Worker endpoint /hacienda esperado:
+// GET https://rough-mode-11ab.cristianlovino.workers.dev/hacienda
+// Response: { novillo_esp:{price,low,high,change_today,updated}, novillito:{...}, ... }
+// Para implementar: scraping Mercado Liniers o Cañuelas
 const API_BASE = 'https://rough-mode-11ab.cristianlovino.workers.dev';
 const POLL_INTERVAL_GRANOS   = 5000;   // 5s — granos (Rofex)
 const POLL_INTERVAL_HACIENDA = 60000;  // 1m — Liniers
@@ -1954,7 +1960,7 @@ function setApiDot(id, type) {
 // ═══════════════════════════════════════════
 function startPolling() {
   fetchGranos();
-  fetchHacienda();
+  startHaciendaPolling();
   fetchDolar();
   setInterval(fetchGranos, POLL_INTERVAL_GRANOS);
   setInterval(fetchDolar,  5 * 60 * 1000);
@@ -1976,10 +1982,27 @@ async function fetchGranos() {
 }
 
 async function fetchHacienda() {
-  // Hacienda: datos de referencia Liniers/Cañuelas
-  // Actualización manual semanal
+  try {
+    const res  = await fetch(`${API_BASE}/hacienda`, { signal: AbortSignal.timeout(5000) });
+    const data = await res.json();
+    if (data && Object.keys(data).length > 0) {
+      renderHacienda(data);
+      setApiDot('dot-liniers', 'live');
+      document.getElementById('hacFuente').textContent = 'LINIERS · CAÑUELAS · LIVE';
+      return;
+    }
+  } catch(e) {
+    // fallback silently
+  }
+  // Fallback: datos de referencia
   renderHacStaticData();
   setApiDot('dot-liniers', 'static');
+}
+
+// Re-poll hacienda every minute
+function startHaciendaPolling() {
+  fetchHacienda();
+  setInterval(fetchHacienda, POLL_INTERVAL_HACIENDA);
 }
 
 function appendRofexLog(msg, color='#00ff41') {
@@ -2067,21 +2090,23 @@ function generateSpark(history, up) {
 }
 
 function renderGranosStatic() {
+  // Valores de referencia AFA Diario · mayo 2025
   const staticData = {
-    'SOJA/DISP':  { last: 445000, open: 480000, high: 488000, low: 478000, change: 5000,   change_pct: 1.04,  time: 'CIERRE' },
-    'MAIZ/DISP':  { last: 247000, open: 248000, high: 252000, low: 247000, change: 2000,   change_pct: 0.81,  time: 'CIERRE' },
-    'TRIGO/DISP': { last: 258000, open: 228000, high: 232000, low: 227000, change: 2000,   change_pct: 0.88,  time: 'CIERRE' },
-    'GIRAS/DISP': { last: 536000, open: 346000, high: 350000, low: 344000, change: 2000,   change_pct: 0.58,  time: 'CIERRE' },
-    'SORGO/DISP': { last: 185000, open: 184000, high: 186000, low: 183000, change: 1000,   change_pct: 0.54,  time: 'CIERRE' },
+    'SOJA/DISP':  { last: 355000, open: 353000, high: 358000, low: 351000, change: 2000,   change_pct: 0.57,  time: 'CIERRE' },
+    'MAIZ/DISP':  { last: 295000, open: 293000, high: 297000, low: 291000, change: 2000,   change_pct: 0.69,  time: 'CIERRE' },
+    'TRIGO/DISP': { last: 318000, open: 316000, high: 321000, low: 314000, change: 2500,   change_pct: 0.79,  time: 'CIERRE' },
+    'GIRAS/DISP': { last: 480000, open: 477000, high: 484000, low: 474000, change: 3000,   change_pct: 0.63,  time: 'CIERRE' },
+    'SORGO/DISP': { last: 228000, open: 226000, high: 230000, low: 224000, change: 2000,   change_pct: 0.89,  time: 'CIERRE' },
   };
   renderGranos(staticData);
 
   const cbotTbody = document.getElementById('cbotTbody');
+  // CBOT · futuros mayo 2025
   const cbotData = [
-    { label:'SOJA',   pos:'NOV-25', usd: 368, chg: +1.2 },
-    { label:'MAÍZ',   pos:'DIC-25', usd: 174, chg: -0.4 },
-    { label:'TRIGO',  pos:'DIC-25', usd: 197, chg: +0.9 },
-    { label:'ACEITE', pos:'DIC-25', usd: 848, chg: +2.6 },
+    { label:'SOJA',   pos:'JUL-25', usd: 358, chg: +0.6 },
+    { label:'MAÍZ',   pos:'JUL-25', usd: 196, chg: +1.1 },
+    { label:'TRIGO',  pos:'JUL-25', usd: 212, chg: -0.3 },
+    { label:'ACEITE', pos:'JUL-25', usd: 978, chg: +1.8 },
   ];
   cbotTbody.innerHTML = cbotData.map(d => {
     const up = d.chg >= 0;
@@ -2099,13 +2124,13 @@ function renderGranosStatic() {
 //  RENDER HACIENDA
 // ═══════════════════════════════════════════
 const hacConfig = [
-  { key:'novillo_esp',  label:'Novillo Especial +480kg',  sub:'Exportación / premium',    varAnio:'+35.7%', up:true },
-  { key:'novillito',    label:'Novillito 340–480kg',       sub:'Consumo / exportación',    varAnio:'+7.1%', up:true },
-  { key:'vaquillona',   label:'Vaquillona +300kg',         sub:'Cría / consumo',           varAnio:'+6.8%', up:true },
-  { key:'vaca',         label:'Vaca consumo',              sub:'Faena directa',            varAnio:'+5.2%', up:true },
-  { key:'ternero_inv',  label:'Ternero invernada 160–180kg', sub:'Reposición',             varAnio:'+11.2%', up:true },
-  { key:'ternera',      label:'Ternera 140–160kg',         sub:'Reposición / consumo',     varAnio:'+9.8%', up:true },
-  { key:'toro',         label:'Toro',                      sub:'Descarte',                 varAnio:'+3.8%', up:true },
+  { key:'novillo_esp',  label:'Novillo Especial +480kg',  sub:'Exportación / premium',    varAnio:'+47.4%', up:true },
+  { key:'novillito',    label:'Novillito 340–480kg',       sub:'Consumo / exportación',    varAnio:'+37.0%', up:true },
+  { key:'vaquillona',   label:'Vaquillona +300kg',         sub:'Cría / consumo',           varAnio:'+36.0%', up:true },
+  { key:'vaca',         label:'Vaca consumo',              sub:'Faena directa',            varAnio:'+36.8%', up:true },
+  { key:'ternero_inv',  label:'Ternero invernada 160–180kg', sub:'Reposición',             varAnio:'+37.1%', up:true },
+  { key:'ternera',      label:'Ternera 140–160kg',         sub:'Reposición / consumo',     varAnio:'+36.2%', up:true },
+  { key:'toro',         label:'Toro',                      sub:'Descarte',                 varAnio:'+43.8%', up:true },
 ];
 
 function renderHacienda(data) {
@@ -2143,17 +2168,18 @@ function renderHacienda(data) {
 }
 
 function renderHacStaticData() {
+  // Valores de referencia Liniers/Cañuelas · mayo 2025
   const staticHac = {
-    novillo_esp: { price:4750, low:4600, high:4800, change_today:+85, updated:'Liniers/Cañuelas hoy' },
-    novillito:   { price:5400, low:5140, high:5700, change_today:+120, updated:'Liniers/Cañuelas hoy' },
-    vaquillona:  { price:5000, low:4600, high:5620, change_today:+95, updated:'Cañuelas hoy' },
-    vaca:        { price:3800, low:3600, high:3950, change_today:+60, updated:'Liniers/Cañuelas hoy' },
-    ternero_inv: { price:6200, low:5900, high:6500, change_today:+150, updated:'Reposición hoy' },
-    ternera:     { price:5800, low:5500, high:6100, change_today:+110, updated:'Reposición hoy' },
-    toro:        { price:3200, low:3000, high:3350, change_today:+40, updated:'Liniers hoy' },
+    novillo_esp: { price:6950, low:6700, high:7200, change_today:+180, updated:'Ref. Liniers may-25' },
+    novillito:   { price:7400, low:7100, high:7700, change_today:+210, updated:'Ref. Liniers may-25' },
+    vaquillona:  { price:6800, low:6500, high:7100, change_today:+160, updated:'Ref. Cañuelas may-25' },
+    vaca:        { price:5200, low:4950, high:5450, change_today:+120, updated:'Ref. Liniers may-25' },
+    ternero_inv: { price:8500, low:8100, high:8900, change_today:+250, updated:'Ref. Reposición may-25' },
+    ternera:     { price:7900, low:7500, high:8300, change_today:+200, updated:'Ref. Reposición may-25' },
+    toro:        { price:4600, low:4300, high:4850, change_today:+80,  updated:'Ref. Liniers may-25' },
   };
   renderHacienda(staticHac);
-  document.getElementById('hacFuente').textContent = 'REFERENCIA ESTÁTICA · Conectar servidor para datos reales';
+  document.getElementById('hacFuente').textContent = 'REFERENCIA · May 2025 · Conectar servidor para datos live';
 }
 
 // ═══════════════════════════════════════════
@@ -2161,17 +2187,17 @@ function renderHacStaticData() {
 // ═══════════════════════════════════════════
 function buildTicker(granosData, hacData) {
   const items = [
-    { sym:'SOJA', val: granosData?.['SOJA/DISP']?.last  || 390500, chg: granosData?.['SOJA/DISP']?.change_pct || 1.43 },
-    { sym:'MAÍZ', val: granosData?.['MAIZ/DISP']?.last  || 218000, chg: granosData?.['MAIZ/DISP']?.change_pct || -0.68 },
-    { sym:'TRIGO',val: granosData?.['TRIGO/DISP']?.last || 205000, chg: granosData?.['TRIGO/DISP']?.change_pct || 1.47 },
-    { sym:'GSOL', val: granosData?.['GIRAS/DISP']?.last || 348000, chg: granosData?.['GIRAS/DISP']?.change_pct || 0.58 },
-    { sym:'USD',  val: parseInt(document.getElementById('usdOficial')?.textContent?.replace(/[^0-9]/g,'')) || 1065, chg: null },
-    { sym:'NOV.ESP.', val: hacData?.novillo_esp?.price  || 2980, chg: null },
-    { sym:'NOVILLO',  val: hacData?.novillito?.price    || 2840, chg: null },
-    { sym:'TERNERO',  val: hacData?.ternero_inv?.price  || 3450, chg: null },
-    { sym:'VACA',     val: hacData?.vaca?.price         || 2420, chg: null },
-    { sym:'CAPÓN',    val: 2450, chg: null },
-    { sym:'PARRILLERO', val: 1280, chg: null },
+    { sym:'SOJA', val: granosData?.['SOJA/DISP']?.last  || 355000, chg: granosData?.['SOJA/DISP']?.change_pct || 0.57 },
+    { sym:'MAÍZ', val: granosData?.['MAIZ/DISP']?.last  || 295000, chg: granosData?.['MAIZ/DISP']?.change_pct || 0.69 },
+    { sym:'TRIGO',val: granosData?.['TRIGO/DISP']?.last || 318000, chg: granosData?.['TRIGO/DISP']?.change_pct || 0.79 },
+    { sym:'GSOL', val: granosData?.['GIRAS/DISP']?.last || 480000, chg: granosData?.['GIRAS/DISP']?.change_pct || 0.63 },
+    { sym:'USD',  val: parseInt(document.getElementById('usdOficial')?.textContent?.replace(/[^0-9]/g,'')) || 1130, chg: null },
+    { sym:'NOV.ESP.', val: hacData?.novillo_esp?.price  || 6950, chg: null },
+    { sym:'NOVILLO',  val: hacData?.novillito?.price    || 7400, chg: null },
+    { sym:'TERNERO',  val: hacData?.ternero_inv?.price  || 8500, chg: null },
+    { sym:'VACA',     val: hacData?.vaca?.price         || 5200, chg: null },
+    { sym:'CAPÓN',    val: 3180, chg: null },
+    { sym:'PARRILLERO', val: 1680, chg: null },
   ];
 
   const html = [...items, ...items].map(item => {
@@ -2200,6 +2226,8 @@ function loadStaticData() {
   appendRofexLog('MODO ESTÁTICO ACTIVO', '#ffd700');
   appendRofexLog('Scraping AFA Diario activo · cada 15 min', '#ffd700');
   appendRofexLog('Precios: afascl.coop/afadiario', '#00b4ff');
+  // Intentar hacienda igualmente (Worker puede estar disponible)
+  startHaciendaPolling();
 }
 
 // ═══════════════════════════════════════════
